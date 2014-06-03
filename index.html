@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width">
+
+    <title>Club · Panel</title>
+
+    <link rel="stylesheet" type="text/css" href="./o.css" />
+</head>
+<body class="metro">
+
+<div id="page">
+    <div><div id="header">
+            Club: <span id="status-box">Unknown</span>
+            <div id="time-container">
+                Date: <span id="time-box">Unknown</span>
+            </div>
+    </div></div>
+
+    <div><div id="content">
+
+            <div id="shutdown-container">
+                <div class="shutdown-button disabled" id="shutdown">
+                    <span>Shutdown</span>
+                </div>
+                <br />
+                <div class="shutdown-button disabled" id="shutdown-force">
+                    <span>Force Shutdown</span>
+                </div>
+                <br />
+                <div class="gate-button disabled" id="gate">
+                    <span>Open Gate</span>
+                </div>
+            </div>
+
+            <div class="room" id="wohnzimmer">
+                <h1>Wohnzimmer</h1>
+                <div class="licht-container">
+
+                    <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/tuer">
+                        <span>Tür</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/mitte">
+                        <span>Mitte</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/kueche">
+                        <span>Küche</span>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="room" id="plenarsaal">
+                <h1>Plenarsaal</h1>
+                <div class="licht-container">
+
+                    <div class="licht-button licht-unknown" data-topic="licht/plenar/vornewand">
+                        <span>Vorne Wand</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/plenar/vornefenster">
+                        <span>Vorne Fenster</span>
+                    </div>
+                    <br />
+                    <div class="licht-button licht-unknown" data-topic="licht/plenar/hintenwand">
+                        <span>Hinten Wand</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/plenar/hintenfenster">
+                        <span>Hinten Fenster</span>
+                    </div>
+
+                </div>
+
+                <div class="fenster-container">
+
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/vornerechts">
+                        <span>Vorne Rechts</span>
+                    </div>
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/vornelinks">
+                        <span>Vorne Links</span>
+                    </div>
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/hintenrechts">
+                        <span>Hinten Rechts</span>
+                    </div>
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/hintenlinks">
+                        <span>Hinten Links</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="room" id="keller">
+                <h1>Keller</h1>
+                <div class="licht-container">
+
+                    <div class="licht-button licht-unknown" data-topic="licht/keller/aussen">
+                        <span>Außen</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/keller/innen">
+                        <span>Innen</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="room" id="fnordcenter">
+                <h1>Fnordcenter</h1>
+                <div class="licht-container">
+
+                    <div class="licht-button licht-unknown" data-topic="licht/fnord/links">
+                        <span>Links</span>
+                    </div>
+                        <div class="licht-button licht-unknown" data-topic="licht/fnord/rechts">
+                        <span>Rechts</span>
+                    </div>
+
+                </div>
+
+                <div class="dmx-room-container">
+                    <div class="dmx-container" id="dmx-master">
+                        <h2>DMX</h2>
+                        <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                        <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                        <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                    </div>
+
+                    <div class="dmx-detail-container hidden">
+                        <div class="dmx-container" data-topic="dmx/fnord/schranklinks">
+                            <h3>Schrank links</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-topic="dmx/fnord/schrankrechts">
+                            <h3>Schrank rechts</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-topic="dmx/fnord/fairyfenster">
+                            <h3>Fairy Fenster</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-topic="dmx/fnord/scummfenster">
+                            <h3>SCUMM fenster</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                    </div>
+                    <div class="open-close-button"><span>v v v</span></div>
+                </div>
+            </div>
+
+    </div></div>
+
+    <div><div id="footer">
+            <div id="mpd-plenar" class="mpd-bar">
+                <span>Status:</span> <span class="mpd-status">Unknown</span>
+                <span>Current song:</span> <span class="mpd-song">Unknown</span>
+            </div>
+    </div></div>
+</div>
+
+<script>window.jQuery || document.write("<script src='jquery-1.8.3.min.js'>\x3C/script>")</script>
+<script src="mqttws31.js"></script>
+<script src="licht.js"></script>
+<script src="time.js"></script>
+</body>
+</html>
