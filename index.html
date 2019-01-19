@@ -19,7 +19,9 @@
             </div>
     </div></div>
 
+
     <div><div id="content">
+
 
             <div id="shutdown-container">
                 <div class="shutdown-button disabled" id="shutdown">
@@ -35,10 +37,23 @@
                 </div>
             </div>
 
+
             <div class="room" id="wohnzimmer">
                 <h1>Wohnzimmer</h1>
-                <div class="licht-container">
 
+                <div class="preset-container">
+                    <div class="preset-button licht-an disabled" data-topic="preset/wohnzimmer/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="preset-button fade disabled" data-topic="preset/wohnzimmer/fade">
+                        <span>Fading</span>
+                    </div>
+                    <div class="preset-button licht-aus disabled" data-topic="preset/wohnzimmer/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
                     <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/tuer">
                         <span>Tür</span>
                     </div>
@@ -48,15 +63,130 @@
                     <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/kueche">
                         <span>Küche</span>
                     </div>
+                    <br>
+                    <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/gang">
+                        <span>Gang</span>
+                    </div>
+                </div>
 
+                <div class="licht-container">
+                    <div class="licht-button licht-unknown" data-topic="power/wohnzimmer/kitchenlight">
+                        <span>kitchen light</span>
+                    </div>
+                </div>
+
+                <div class="fenster-container">
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/wohnzimmer/links">
+                        <span>Links</span>
+                    </div>
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/wohnzimmer/rechts">
+                        <span>Rechts</span>
+                    </div>
+                </div>
+
+                <div class="mpd-container" data-topic="mpd/baellebad">
+                    <div class="mpd-control-box">
+                        <div class="mpd-button disabled" data-function="play">
+                            <span>&#x23f5;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="pause">
+                            <span>&#x23f8;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="stop">
+                            <span>&#x23f9;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="prev">
+                            <span>&#x23ee;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="next">
+                            <span>&#x23ed;</span>
+                        </div>
+                    </div>
+                    <div class="mpd-status-box">
+                        <div class="mpd-state state-unknown">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dmx-room-container">
+                    <div class="dmx-container dmx-master" data-variant="7ch" data-topic="dmx/wohnzimmer/master">
+                        <h2>DMX</h2>
+                        <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                        <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                        <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                    </div>
+
+                    <div class="dmx-detail-container hidden">
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte1">
+                            <h3>Mitte 1</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte2">
+                            <h3>Mitte 2</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte3">
+                            <h3>Mitte 3</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer1">
+                            <h3>T&uuml;r 1</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer2">
+                            <h3>T&uuml;r 2</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer3">
+                            <h3>T&uuml;r 3</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/gang">
+                            <h3>Gang</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/baellebad">
+                            <h3>B&auml;llebad</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                    </div>
+                    <div class="open-close-button"><span>v v v</span></div>
                 </div>
             </div>
 
 
             <div class="room" id="plenarsaal">
                 <h1>Plenarsaal</h1>
-                <div class="licht-container">
 
+                <div class="preset-container">
+                    <div class="preset-button licht-an disabled" data-topic="preset/plenar/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="preset-button fade disabled" data-topic="preset/plenar/fade">
+                        <span>Fading</span>
+                    </div>
+                    <div class="preset-button licht-aus disabled" data-topic="preset/plenar/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
                     <div class="licht-button licht-unknown" data-topic="licht/plenar/vornewand">
                         <span>Vorne Wand</span>
                     </div>
@@ -70,56 +200,49 @@
                     <div class="licht-button licht-unknown" data-topic="licht/plenar/hintenfenster">
                         <span>Hinten Fenster</span>
                     </div>
-
                 </div>
 
                 <div class="fenster-container">
-
-                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/vornerechts">
-                        <span>Vorne Rechts</span>
-                    </div>
                     <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/vornelinks">
                         <span>Vorne Links</span>
                     </div>
-                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/hintenrechts">
-                        <span>Hinten Rechts</span>
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/vornerechts">
+                        <span>Vorne Rechts</span>
                     </div>
                     <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/hintenlinks">
                         <span>Hinten Links</span>
                     </div>
-
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/hintenrechts">
+                        <span>Hinten Rechts</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="room" id="keller">
-                <h1>Keller</h1>
-                <div class="licht-container">
-
-                    <div class="licht-button licht-unknown" data-topic="licht/keller/aussen">
-                        <span>Außen</span>
+                <div class="mpd-container" data-topic="mpd/plenar">
+                    <div class="mpd-control-box">
+                        <div class="mpd-button disabled" data-function="play">
+                            <span>&#x23f5;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="pause">
+                            <span>&#x23f8;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="stop">
+                            <span>&#x23f9;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="prev">
+                            <span>&#x23ee;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="next">
+                            <span>&#x23ed;</span>
+                        </div>
                     </div>
-                    <div class="licht-button licht-unknown" data-topic="licht/keller/innen">
-                        <span>Innen</span>
+                    <div class="mpd-status-box">
+                        <div class="mpd-state state-unknown">
+                        </div>
                     </div>
-
-                </div>
-            </div>
-
-            <div class="room" id="fnordcenter">
-                <h1>Fnordcenter</h1>
-                <div class="licht-container">
-
-                    <div class="licht-button licht-unknown" data-topic="licht/fnord/links">
-                        <span>Links</span>
-                    </div>
-                        <div class="licht-button licht-unknown" data-topic="licht/fnord/rechts">
-                        <span>Rechts</span>
-                    </div>
-
                 </div>
 
                 <div class="dmx-room-container">
-                    <div class="dmx-container" id="dmx-master">
+                    <div class="dmx-container dmx-master" data-variant="7ch" data-topic="dmx/plenar/master">
                         <h2>DMX</h2>
                         <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
                         <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
@@ -127,25 +250,193 @@
                     </div>
 
                     <div class="dmx-detail-container hidden">
-                        <div class="dmx-container" data-topic="dmx/fnord/schranklinks">
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne1">
+                            <h3>Vorne 1</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne2">
+                            <h3>Vorne 2</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne3">
+                            <h3>Vorne 3</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten1">
+                            <h3>Hinten 1</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten2">
+                            <h3>Hinten 2</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten3">
+                            <h3>Hinten 3</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten4">
+                            <h3>Hinten 4</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                    </div>
+                    <div class="open-close-button"><span>v v v</span></div>
+                </div>
+            </div>
+
+
+            <div class="room" id="keller">
+                <h1>Keller</h1>
+
+                <div class="preset-container">
+                    <div class="preset-button licht-an disabled" data-topic="preset/keller/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="preset-button licht-aus disabled" data-topic="preset/keller/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
+                    <div class="licht-button licht-unknown" data-topic="licht/keller/loet">
+                        <span>Löt</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/keller/mitte">
+                        <span>Mitte</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/keller/vorne">
+                        <span>Vorne</span>
+                    </div>
+		    <br>
+                    <div class="licht-button licht-unknown" data-topic="led/keller/werkbankkalt">
+                        <span>Werkbank Warm</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="led/keller/werkbankwarm">
+                        <span>Werkbank Kalt</span>
+                    </div>
+                </div>
+
+                <div class="mpd-container" data-topic="mpd/keller">
+                    <div class="mpd-control-box">
+                        <div class="mpd-button disabled" data-function="play">
+                            <span>&#x23f5;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="pause">
+                            <span>&#x23f8;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="stop">
+                            <span>&#x23f9;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="prev">
+                            <span>&#x23ee;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="next">
+                            <span>&#x23ed;</span>
+                        </div>
+                    </div>
+                    <div class="mpd-status-box">
+                        <div class="mpd-state state-unknown">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="room" id="fnordcenter">
+                <h1>Fnordcenter</h1>
+
+                <div class="preset-container">
+                    <div class="preset-button licht-an disabled" data-topic="preset/fnord/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="preset-button licht-aus disabled" data-topic="preset/fnord/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
+                    <div class="licht-button licht-unknown" data-topic="licht/fnord/links">
+                        <span>Links</span>
+                    </div>
+                        <div class="licht-button licht-unknown" data-topic="licht/fnord/rechts">
+                        <span>Rechts</span>
+                    </div>
+                </div>
+
+                <div class="fenster-container">
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/fnord/links">
+                        <span>Links</span>
+                    </div>
+                    <div class="fenster-box fenster-unknown" data-topic="fenster/fnord/rechts">
+                        <span>Rechts</span>
+                    </div>
+                </div>
+
+                <div class="mpd-container" data-topic="mpd/fnord">
+                    <div class="mpd-control-box">
+                        <div class="mpd-button disabled" data-function="play">
+                            <span>&#x23f5;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="pause">
+                            <span>&#x23f8;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="stop">
+                            <span>&#x23f9;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="prev">
+                            <span>&#x23ee;</span>
+                        </div>
+                        <div class="mpd-button disabled" data-function="next">
+                            <span>&#x23ed;</span>
+                        </div>
+                    </div>
+                    <div class="mpd-status-box">
+                        <div class="mpd-state state-unknown">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dmx-room-container">
+                    <div class="dmx-container dmx-master" data-variant="4ch" data-topic="dmx/fnord/master">
+                        <h2>DMX</h2>
+                        <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                        <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                        <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                    </div>
+
+                    <div class="dmx-detail-container hidden">
+                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/schranklinks">
                             <h3>Schrank links</h3>
                             <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
                             <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
                             <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
                         </div>
-                        <div class="dmx-container" data-topic="dmx/fnord/schrankrechts">
+                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/schrankrechts">
                             <h3>Schrank rechts</h3>
                             <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
                             <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
                             <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
                         </div>
-                        <div class="dmx-container" data-topic="dmx/fnord/fairyfenster">
+                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/fairyfenster">
                             <h3>Fairy Fenster</h3>
                             <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
                             <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
                             <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
                         </div>
-                        <div class="dmx-container" data-topic="dmx/fnord/scummfenster">
+                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/scummfenster">
                             <h3>SCUMM fenster</h3>
                             <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
                             <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
@@ -156,17 +447,16 @@
                 </div>
             </div>
 
+
     </div></div>
 
     <div><div id="footer">
-            <div id="mpd-plenar" class="mpd-bar">
-                <span>Status:</span> <span class="mpd-status">Unknown</span>
-                <span>Current song:</span> <span class="mpd-song">Unknown</span>
-            </div>
+            &nbsp;
     </div></div>
 </div>
 
 <script>window.jQuery || document.write("<script src='jquery-1.8.3.min.js'>\x3C/script>")</script>
+<script src="jquery.inputevent.js"></script>
 <script src="mqttws31.js"></script>
 <script src="licht.js"></script>
 <script src="time.js"></script>

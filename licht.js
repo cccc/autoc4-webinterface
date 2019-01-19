@@ -40,6 +40,13 @@ function register_click_handlers()
             mqtt_client.send(message);
         });
     });
+    $('div.preset-container').find('.preset-button').each(function() {
+        var preset_button = $(this);
+        preset_button.click(function(ev) {
+            ev.preventDefault();
+            send_preset(preset_button);
+        });
+    });
     $('div.licht-container').find('.licht-button').each(function() {
         var licht_button = $(this);
         var topic = licht_button.data('topic');
@@ -49,16 +56,26 @@ function register_click_handlers()
             onoff(topic, on);
         });
     });
+    $('div.mpd-container').each(function() {
+        var container = $(this);
+        var topic = container.data('topic') + '/control';
+        var buttons = container.find('.mpd-button');
+        buttons.click(function(ev) {
+            ev.preventDefault();
+            var fct = $(this).data('function');
+            mpd_control(topic, fct);
+        });
+    });
     $('.dmx-room-container > .dmx-container > .dmx-range').each(function() {
         var slider = $(this);
-        slider.change(function(ev) {
+        slider.input(function(ev) {
             ev.preventDefault();
             send_dmx_room_data(slider.parent());
         });
     });
     $('.dmx-detail-container > .dmx-container > .dmx-range').each(function() {
         var slider = $(this);
-        slider.change(function(ev) {
+        slider.input(function(ev) {
             ev.preventDefault();
             send_dmx_data(slider.parent());
         });
@@ -87,7 +104,8 @@ var mqtt_client;
 
 function init_mqtt_websockets() {
     //mqtt_client = new Messaging.Client(location.hostname, Number(location.port), mqtt_generate_clientid());
-    mqtt_client = new Messaging.Client(location.hostname, 9000, mqtt_generate_clientid());
+    //mqtt_client = new Messaging.Client(location.hostname, 9000, mqtt_generate_clientid());
+    mqtt_client = new Messaging.Client('172.23.23.110', 9000, mqtt_generate_clientid());
     mqtt_client.onConnectionLost = mqtt_on_connection_lost;
     mqtt_client.onMessageArrived = mqtt_on_message_arrived;
     mqtt_client.connect({onSuccess:mqtt_on_connect, onFailure:mqtt_on_connect_failure});
@@ -111,6 +129,8 @@ function mqtt_on_connect() {
 
     // Once a connection has been made, make subscriptions.
     mqtt_client.subscribe('licht/+/+');
+    mqtt_client.subscribe('led/+/+');
+    mqtt_client.subscribe('power/+/+');
     mqtt_client.subscribe('mpd/+/+');
     mqtt_client.subscribe('fenster/+/+');
     mqtt_client.subscribe('dmx/+/+');
@@ -119,6 +139,8 @@ function mqtt_on_connect() {
     // enable buttons
     $('.shutdown-button').removeClass('disabled');
     $('.gate-button').removeClass('disabled');
+    $('.preset-button').removeClass('disabled');
+    $('.mpd-button').removeClass('disabled');
 };
 
 function mqtt_on_connection_lost(responseObject) {
@@ -128,7 +150,7 @@ function mqtt_on_connection_lost(responseObject) {
 };
 
 function mqtt_on_message_arrived(message) {
-    if (message.destinationName.startsWith('licht/'))
+    if (message.destinationName.startsWith('licht/') || message.destinationName.startsWith('power/') || message.destinationName.startsWith('led/'))
     {
         // update licht-button state
         var button = $('.licht-button').filter('[data-topic="' + message.destinationName + '"]');
@@ -166,18 +188,19 @@ function mqtt_on_message_arrived(message) {
             header.css('color', 'rgb(' + payloadBytes[0] + ',' + payloadBytes[1] + ',' + payloadBytes[2] + ')');
 
             var same = true;
-            $('.dmx-detail-container .dmx-range').filter('[data-color="red"]').each(function(i, e) {
+            var detail_container = dmx_container.parent();
+            detail_container.find('.dmx-range[data-color="red"]').each(function(i, e) {
                 same = same && ($(e).val() == payloadBytes[0]);
             });
-            $('.dmx-detail-container .dmx-range').filter('[data-color="green"]').each(function(i, e) {
+            detail_container.find('.dmx-range[data-color="green"]').each(function(i, e) {
                 same = same && ($(e).val() == payloadBytes[1]);
             });
-            $('.dmx-detail-container .dmx-range').filter('[data-color="blue"]').each(function(i, e) {
+            detail_container.find('.dmx-range[data-color="blue"]').each(function(i, e) {
                 same = same && ($(e).val() == payloadBytes[2]);
             });
             if (same)
             {
-                var dmx = $('#dmx-master');
+                var dmx = detail_container.parent().find('.dmx-master');
                 dmx.find('[data-color="red"]').val(payloadBytes[0]);
                 dmx.find('[data-color="green"]').val(payloadBytes[1]);
                 dmx.find('[data-color="blue"]').val(payloadBytes[2]);
@@ -188,32 +211,42 @@ function mqtt_on_message_arrived(message) {
         return;
     }
 
-    // to be redone, mpd messages
-    if (message.destinationName == 'mpd/plenar/state')
+    if (message.destinationName.startsWith('mpd/'))
     {
-        var t = $('#mpd-plenar .mpd-status');
+        var index = message.destinationName.lastIndexOf('/');
+        var prefix = message.destinationName.substring(0, index);
+        var suffix = message.destinationName.substring(index + 1);
+        var container = $('.mpd-container[data-topic="'+prefix+'"]');
 
-        if (message.payloadString == 'play')
+        var state_box = container.find('.mpd-state');
+        console.log(state_box);
+
+        if (suffix == 'state')
         {
-            t.text('Playing');
+            state2class = {
+                'play': 'playing',
+                'pause': 'paused',
+                'stop': 'stopped',
+            }
+
+            state_box.removeClass('state-unknown');
+            state_box.removeClass('state-playing');
+            state_box.removeClass('state-stopped');
+            state_box.removeClass('state-paused');
+
+            if (message.payloadString in state2class)
+            {
+                state_box.addClass('state-' + state2class[message.payloadString]);
+            }
+            else
+            {
+                state_box.addClass('state-unknown');
+            }
         }
-        else if (message.payloadString == 'pause')
+        else if (suffix == 'song')
         {
-            t.text('Paused');
+            state_box.text(message.payloadString);
         }
-        else if (message.payloadString == 'stop')
-        {
-            t.text('Stopped');
-        }
-        else
-        {
-            t.text(message.payloadString);
-        }
-    }
-    if (message.destinationName == 'mpd/plenar/song')
-    {
-        var t = $('#mpd-plenar .mpd-song');
-        t.text(message.payloadString);
     }
 
     if (message.destinationName == 'club/status')
@@ -239,31 +272,55 @@ function onoff(topic, on) {
 
 // publish dmx rgb color + enable byte for a dmx container
 function send_dmx_data(container) {
-    var buf = new Uint8Array(4);
-    buf[0] = container.find('[data-color="red"]').val();
-    buf[1] = container.find('[data-color="green"]').val();
-    buf[2] = container.find('[data-color="blue"]').val();
-    buf[3] = 255;
+    if (container.data('variant') == '4ch')
+    {
+        var buf = new Uint8Array(4);
+        buf[0] = container.find('[data-color="red"]').val();
+        buf[1] = container.find('[data-color="green"]').val();
+        buf[2] = container.find('[data-color="blue"]').val();
+        buf[3] = 255;
+    }
+    else if (container.data('variant') == '7ch')
+    {
+        var buf = new Uint8Array(7);
+        buf[0] = container.find('[data-color="red"]').val();
+        buf[1] = container.find('[data-color="green"]').val();
+        buf[2] = container.find('[data-color="blue"]').val();
+        buf[3] = 0;
+        buf[4] = 0;
+        buf[5] = 0;
+        buf[6] = 255; // full brightness
+    }
     var message = new Messaging.Message(buf);
-    message.retained = false;
+    message.retained = true;
     message.destinationName = container.data('topic');
     mqtt_client.send(message);
 };
 // publish dmx rgb color + enable byte for a dmx room container
 // actually publishes the value off the room slider for all sub dmx-containers
 function send_dmx_room_data(container) {
-    container.parent().find('.dmx-detail-container > .dmx-container').each(function () {
-        var buf = new Uint8Array(4);
-        buf[0] = container.find('[data-color="red"]').val();
-        buf[1] = container.find('[data-color="green"]').val();
-        buf[2] = container.find('[data-color="blue"]').val();
-        buf[3] = 255;
-        var message = new Messaging.Message(buf);
-        message.retained = false;
-        message.destinationName = $(this).data('topic');
-        mqtt_client.send(message);
-    });
+    send_dmx_data(container);
+    //container.parent().find('.dmx-detail-container > .dmx-container').each(function () {
+    //    $(this).find('[data-color="red"]').val(container.find('[data-color="red"]').val());
+    //    $(this).find('[data-color="green"]').val(container.find('[data-color="green"]').val());
+    //    $(this).find('[data-color="blue"]').val(container.find('[data-color="blue"]').val());
+    //    send_dmx_data($(this));
+    //});
 };
+function send_preset(preset_button) {
+    var topic = preset_button.data('topic');
+    var buf = new Uint8Array(0);
+    var message = new Messaging.Message(buf);
+    message.destinationName = topic;
+    mqtt_client.send(message);
+}
+
+function mpd_control(topic, fct) {
+    var message = new Messaging.Message(fct);
+    message.retained = false;
+    message.destinationName = topic;
+    mqtt_client.send(message);
+}
 
 // disable all controls
 function all_unknown() {
@@ -271,6 +328,8 @@ function all_unknown() {
     $('.fenster-box').addClass('fenster-unknown');
     $('.shutdown-button').addClass('disabled');
     $('.gate-button').addClass('disabled');
+    $('.preset-button').addClass('disabled');
+    $('.mpd-button').addClass('disabled');
 };
 
 register_click_handlers();

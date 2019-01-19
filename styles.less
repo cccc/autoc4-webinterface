@@ -100,6 +100,8 @@ div#footer {
 
 .licht-container,
 .fenster-container,
+.preset-container,
+.mpd-control-box,
 #shutdown-container
 {
   font-size:0;
@@ -108,7 +110,9 @@ div#footer {
 .licht-button,
 .fenster-box,
 .shutdown-button,
-.gate-button
+.gate-button,
+.preset-button,
+.mpd-button
 {
   font-size:1rem;
   display: inline-block;
@@ -152,6 +156,49 @@ div#footer {
   &.fenster-unknown { .effect3d(#333333); color:#888888; }
   &.fenster-unknown.fenster-geschlossen { .effect3d(#44447B); color:lightgrey; }
   &.fenster-unknown.fenster-offen { .effect3d(#8899AA); color:lightgrey; }
+}
+
+.preset-container {
+  text-align: center;
+  margin-bottom:0.5rem;
+}
+.preset-button {
+  width:5em;
+  height:5em;
+  margin: 0.3em;
+
+  &.licht-an { .button3d(#45ef45); }
+  &.licht-aus { .button3d(#ef4545); }
+  &.fade { .button3d(#4545ef); }
+  &.disabled.licht-an { .effect3d(desaturate(#00DD00, 80%)); color:#444444; }
+  &.disabled.licht-aus { .effect3d(desaturate(#DD0000, 80%)); color:#444444; }
+  &.disabled.fade { .effect3d(desaturate(#0000DD, 80%)); color:#444444; }
+}
+
+.mpd-container {
+  background-color: #242;
+  width:100%;
+}
+.mpd-control-box {
+  margin-top:0.5rem;
+}
+.mpd-button {
+  width:1.5em;
+  height:1.5em;
+  margin: 0.3em;
+
+  .button3d(#4c4);
+  &.disabled { .effect3d(desaturate(#4a4, 30%)); color:#222; }
+}
+.mpd-status-box {
+  color: #ccc;
+  padding: 0.3em;
+  max-width: 15em;
+
+  > div.mpd-state.state-unknown::before { content: "\002753"; padding-left: 0.25em; padding-right: 0.25em; }
+  > div.mpd-state.state-stopped::before { content: "\0023f9"; padding-left: 0.25em; padding-right: 0.25em; }
+  > div.mpd-state.state-playing::before { content: "\0023f5"; padding-left: 0.25em; padding-right: 0.25em; }
+  > div.mpd-state.state-paused::before  { content: "\0023f8"; padding-left: 0.25em; padding-right: 0.25em; }
 }
 
 
