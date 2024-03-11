@@ -129,6 +129,8 @@ function mqtt_on_connect() {
 
     // Once a connection has been made, make subscriptions.
     mqtt_client.subscribe('licht/+/+');
+    mqtt_client.subscribe('relais/+/+');
+    mqtt_client.subscribe('socket/+/+');
     mqtt_client.subscribe('led/+/+');
     mqtt_client.subscribe('power/+/+');
     mqtt_client.subscribe('mpd/+/+');
@@ -150,7 +152,12 @@ function mqtt_on_connection_lost(responseObject) {
 };
 
 function mqtt_on_message_arrived(message) {
-    if (message.destinationName.startsWith('licht/') || message.destinationName.startsWith('power/') || message.destinationName.startsWith('led/'))
+    if (
+            message.destinationName.startsWith('licht/')
+            || message.destinationName.startsWith('power/')
+            || message.destinationName.startsWith('led/')
+            || message.destinationName.startsWith('relais/')
+        )
     {
         // update licht-button state
         var button = $('.licht-button').filter('[data-topic="' + message.destinationName + '"]');
@@ -182,6 +189,9 @@ function mqtt_on_message_arrived(message) {
             dmx_container.find('[data-color="red"]').val(payloadBytes[0]);
             dmx_container.find('[data-color="green"]').val(payloadBytes[1]);
             dmx_container.find('[data-color="blue"]').val(payloadBytes[2]);
+
+	    if (dmx_container.data('variant') == 'rgbw' && message.payloadBytes.length >= 4)
+                dmx_container.find('[data-color="white"]').val(payloadBytes[3]);
 
             // update header color to match dmx value
             var header = dmx_container.find('h3');
@@ -290,6 +300,21 @@ function send_dmx_data(container) {
         buf[4] = 0;
         buf[5] = 0;
         buf[6] = 255; // full brightness
+    }
+    else if (container.data('variant') == 'rgb')
+    {
+        var buf = new Uint8Array(3);
+        buf[0] = container.find('[data-color="red"]').val();
+        buf[1] = container.find('[data-color="green"]').val();
+        buf[2] = container.find('[data-color="blue"]').val();
+    }
+    else if (container.data('variant') == 'rgbw')
+    {
+        var buf = new Uint8Array(4);
+        buf[0] = container.find('[data-color="red"]').val();
+        buf[1] = container.find('[data-color="green"]').val();
+        buf[2] = container.find('[data-color="blue"]').val();
+        buf[3] = container.find('[data-color="white"]').val();
     }
     var message = new Messaging.Message(buf);
     message.retained = true;

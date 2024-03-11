@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="mpd-container" data-topic="mpd/baellebad">
+                <div class="mpd-container" data-topic="mpd/wohnzimmer">
                     <div class="mpd-control-box">
                         <div class="mpd-button disabled" data-function="play">
                             <span>&#x23f5;</span>
@@ -110,7 +110,7 @@
 
                 <div class="dmx-room-container">
                     <div class="dmx-container dmx-master" data-variant="7ch" data-topic="dmx/wohnzimmer/master">
-                        <h2>DMX</h2>
+                        <h2>DMX Kannen</h2>
                         <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
                         <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
                         <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
@@ -168,6 +168,46 @@
                     </div>
                     <div class="open-close-button"><span>v v v</span></div>
                 </div>
+
+                <div class="dmx-room-container">
+			<h2>DMX Küche</h2>
+                    <div class="dmx-detail-container hidden">
+                        <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/tresen">
+                            <h3>Tresen</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="white" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/tresen2">
+                            <h3>Tresen oben</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="white" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/spuele1">
+                            <h3>Spüle</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="white" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="rgb" data-topic="dmx/wohnzimmer/spuele2">
+                            <h3>Spüle oben</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                        <div class="dmx-container" data-variant="rgb" data-topic="dmx/wohnzimmer/chaosknoten">
+                            <h3>Chaosknoten</h3>
+                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
+                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
+                        </div>
+                    </div>
+                    <div class="open-close-button"><span>v v v</span></div>
+                </div>
             </div>
 
 
@@ -199,6 +239,15 @@
                     </div>
                     <div class="licht-button licht-unknown" data-topic="licht/plenar/hintenfenster">
                         <span>Hinten Fenster</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
+                    <div class="licht-button licht-unknown" data-topic="relais/plenar/dmx">
+                        <span>DMX Kannen</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="relais/plenar/amp">
+                        <span>Amp</span>
                     </div>
                 </div>
 
@@ -321,11 +370,18 @@
                         <span>Vorne</span>
                     </div>
 		    <br>
-                    <div class="licht-button licht-unknown" data-topic="led/keller/werkbankkalt">
+                    <div class="licht-button licht-unknown" data-topic="led/keller/werkbankwarm">
                         <span>Werkbank Warm</span>
                     </div>
-                    <div class="licht-button licht-unknown" data-topic="led/keller/werkbankwarm">
+                    <div class="licht-button licht-unknown" data-topic="led/keller/werkbankkalt">
                         <span>Werkbank Kalt</span>
+                    </div>
+		    <br>
+                    <div class="licht-button licht-unknown" data-topic="led/keller/hintenwarm">
+                        <span>Hinten Warm</span>
+                    </div>
+                    <div class="licht-button licht-unknown" data-topic="led/keller/hintenkalt">
+                        <span>Hinten Kalt</span>
                     </div>
                 </div>
 
