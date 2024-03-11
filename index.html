@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="./styles.css" />
 </head>
-<body class="metro">
+<body>
 
 <div id="page">
     <div><div id="header">
@@ -22,191 +22,452 @@
 
     <div><div id="content">
 
-
-            <div id="shutdown-container">
-                <div class="shutdown-button disabled" id="shutdown">
-                    <span>Shutdown</span>
-                </div>
-                <br />
-                <div class="shutdown-button disabled" id="shutdown-force">
-                    <span>Force Shutdown</span>
-                </div>
-                <br />
-                <div class="gate-button disabled" id="gate">
-                    <span>Open Gate</span>
-                </div>
-            </div>
-
-
             <div class="room" id="wohnzimmer">
                 <h1>Wohnzimmer</h1>
 
-                <div class="preset-container">
-                    <div class="preset-button licht-an disabled" data-topic="preset/wohnzimmer/on">
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/wohnzimmer/on">
                         <span>All On</span>
                     </div>
-                    <div class="preset-button fade disabled" data-topic="preset/wohnzimmer/fade">
-                        <span>Fading</span>
+                    <div class="function-button" data-room="wohnzimmer">
+                        <span>Functions</span>
                     </div>
-                    <div class="preset-button licht-aus disabled" data-topic="preset/wohnzimmer/off">
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/wohnzimmer/off">
                         <span>All Off</span>
                     </div>
                 </div>
 
                 <div class="licht-container">
                     <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/tuer">
-                        <span>Tür</span>
-                    </div>
+        <span>Tür</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/mitte">
-                        <span>Mitte</span>
-                    </div>
+        <span>Mitte</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/kueche">
-                        <span>Küche</span>
-                    </div>
+        <span>Küche</span>
+    </div>
                     <br>
                     <div class="licht-button licht-unknown" data-topic="licht/wohnzimmer/gang">
-                        <span>Gang</span>
-                    </div>
+        <span>Gang</span>
+    </div>
                 </div>
 
                 <div class="licht-container">
                     <div class="licht-button licht-unknown" data-topic="power/wohnzimmer/kitchenlight">
-                        <span>kitchen light</span>
-                    </div>
+        <span>Kitchen Light</span>
+    </div>
+                    <!--
+                    <br>
+                    <div class="licht-button licht-unknown" data-topic="socket/wohnzimmer/screen/a">
+        <span>Lese- leuchte</span>
+    </div>
+                    <div class="licht-button licht-unknown" data-topic="socket/wohnzimmer/screen/b">
+        <span>Info- screen</span>
+    </div>
+                    -->
                 </div>
 
                 <div class="fenster-container">
                     <div class="fenster-box fenster-unknown" data-topic="fenster/wohnzimmer/links">
-                        <span>Links</span>
-                    </div>
+        <span>Links</span>
+    </div>
                     <div class="fenster-box fenster-unknown" data-topic="fenster/wohnzimmer/rechts">
-                        <span>Rechts</span>
-                    </div>
+        <span>Rechts</span>
+    </div>
                 </div>
 
                 <div class="mpd-container" data-topic="mpd/wohnzimmer">
-                    <div class="mpd-control-box">
-                        <div class="mpd-button disabled" data-function="play">
-                            <span>&#x23f5;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="pause">
-                            <span>&#x23f8;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="stop">
-                            <span>&#x23f9;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="prev">
-                            <span>&#x23ee;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="next">
-                            <span>&#x23ed;</span>
-                        </div>
+        <div class="mpd-control-box">
+            <div class="mpd-button disabled" data-function="play">
+                
+                <span>&#x23f5;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="pause">
+                <span>&#x23f8;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="stop">
+                <span>&#x23f9;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="prev">
+                <span>&#x23ee;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="next">
+                <span>&#x23ed;</span>
+            </div>
+        </div>
+        <div class="mpd-status-box">
+            <div class="mpd-state state-unknown">
+            </div>
+        </div>
+    </div>
+
+                <div class="dmx-room-container">
+                    
+    <h2>DMX</h2>
+    
+    <div class="dmx-container dmx-master" data-variant="7ch" data-topic="dmx/wohnzimmer/master">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">DMX</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+
+                    <div class="dmx-detail-container">
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte1">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Mitte 1</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte2">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Mitte 2</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte3">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Mitte 3</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer1">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Tür 1</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer2">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Tür 2</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer3">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Tür 3</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/gang">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Gang</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/baellebad">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Bällebad</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
                     </div>
-                    <div class="mpd-status-box">
-                        <div class="mpd-state state-unknown">
-                        </div>
-                    </div>
+                    <div class="open-close-button"><span>^^^</span></div>
                 </div>
 
                 <div class="dmx-room-container">
-                    <div class="dmx-container dmx-master" data-variant="7ch" data-topic="dmx/wohnzimmer/master">
-                        <h2>DMX Kannen</h2>
-                        <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                        <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                        <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                    </div>
+                    <!--<h2>DMX Küche</h2>-->
+                    
+    <h2>DMX Küche</h2>
+    
+    <div class="dmx-container dmx-master" data-variant="7ch" data-topic="">
+        <div class="dmx-color-row">
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">DMX</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
 
-                    <div class="dmx-detail-container hidden">
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte1">
-                            <h3>Mitte 1</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte2">
-                            <h3>Mitte 2</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/mitte3">
-                            <h3>Mitte 3</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer1">
-                            <h3>T&uuml;r 1</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer2">
-                            <h3>T&uuml;r 2</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/tuer3">
-                            <h3>T&uuml;r 3</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/gang">
-                            <h3>Gang</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/wohnzimmer/baellebad">
-                            <h3>B&auml;llebad</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
+                    <div class="dmx-detail-container">
+                        
+    <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/tresen">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Tresen</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+            <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/tresen2">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Tresen oben</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+            <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/spuele1">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Spüle</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+            <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="rgb" data-topic="dmx/wohnzimmer/spuele2">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Spüle oben</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="rgb" data-topic="dmx/wohnzimmer/chaosknoten">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Chaosknoten</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
                     </div>
-                    <div class="open-close-button"><span>v v v</span></div>
-                </div>
-
-                <div class="dmx-room-container">
-			<h2>DMX Küche</h2>
-                    <div class="dmx-detail-container hidden">
-                        <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/tresen">
-                            <h3>Tresen</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="white" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/tresen2">
-                            <h3>Tresen oben</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="white" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="rgbw" data-topic="dmx/wohnzimmer/spuele1">
-                            <h3>Spüle</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="white" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="rgb" data-topic="dmx/wohnzimmer/spuele2">
-                            <h3>Spüle oben</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="rgb" data-topic="dmx/wohnzimmer/chaosknoten">
-                            <h3>Chaosknoten</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                    </div>
-                    <div class="open-close-button"><span>v v v</span></div>
+                    <div class="open-close-button"><span>^^^</span></div>
                 </div>
             </div>
 
@@ -214,135 +475,272 @@
             <div class="room" id="plenarsaal">
                 <h1>Plenarsaal</h1>
 
-                <div class="preset-container">
-                    <div class="preset-button licht-an disabled" data-topic="preset/plenar/on">
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/plenar/on">
                         <span>All On</span>
                     </div>
-                    <div class="preset-button fade disabled" data-topic="preset/plenar/fade">
-                        <span>Fading</span>
+                    <div class="function-button" data-room="plenar">
+                        <span>Functions</span>
                     </div>
-                    <div class="preset-button licht-aus disabled" data-topic="preset/plenar/off">
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/plenar/off">
                         <span>All Off</span>
                     </div>
                 </div>
 
                 <div class="licht-container">
                     <div class="licht-button licht-unknown" data-topic="licht/plenar/vornewand">
-                        <span>Vorne Wand</span>
-                    </div>
+        <span>Vorne Wand</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="licht/plenar/vornefenster">
-                        <span>Vorne Fenster</span>
-                    </div>
+        <span>Vorne Fenster</span>
+    </div>
                     <br />
                     <div class="licht-button licht-unknown" data-topic="licht/plenar/hintenwand">
-                        <span>Hinten Wand</span>
-                    </div>
+        <span>Hinten Wand</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="licht/plenar/hintenfenster">
-                        <span>Hinten Fenster</span>
-                    </div>
-                </div>
-
-                <div class="licht-container">
+        <span>Hinten Fenster</span>
+    </div>
+                    <br />
                     <div class="licht-button licht-unknown" data-topic="relais/plenar/dmx">
-                        <span>DMX Kannen</span>
-                    </div>
+        <span>DMX Kannen</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="relais/plenar/amp">
-                        <span>Amp</span>
-                    </div>
+        <span>Amp</span>
+    </div>
                 </div>
 
                 <div class="fenster-container">
                     <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/vornelinks">
-                        <span>Vorne Links</span>
-                    </div>
+        <span>Vorne Links</span>
+    </div>
                     <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/vornerechts">
-                        <span>Vorne Rechts</span>
-                    </div>
+        <span>Vorne Rechts</span>
+    </div>
                     <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/hintenlinks">
-                        <span>Hinten Links</span>
-                    </div>
+        <span>Hinten Links</span>
+    </div>
                     <div class="fenster-box fenster-unknown" data-topic="fenster/plenar/hintenrechts">
-                        <span>Hinten Rechts</span>
-                    </div>
+        <span>Hinten Rechts</span>
+    </div>
                 </div>
 
                 <div class="mpd-container" data-topic="mpd/plenar">
-                    <div class="mpd-control-box">
-                        <div class="mpd-button disabled" data-function="play">
-                            <span>&#x23f5;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="pause">
-                            <span>&#x23f8;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="stop">
-                            <span>&#x23f9;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="prev">
-                            <span>&#x23ee;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="next">
-                            <span>&#x23ed;</span>
-                        </div>
-                    </div>
-                    <div class="mpd-status-box">
-                        <div class="mpd-state state-unknown">
-                        </div>
-                    </div>
-                </div>
+        <div class="mpd-control-box">
+            <div class="mpd-button disabled" data-function="play">
+                
+                <span>&#x23f5;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="pause">
+                <span>&#x23f8;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="stop">
+                <span>&#x23f9;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="prev">
+                <span>&#x23ee;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="next">
+                <span>&#x23ed;</span>
+            </div>
+        </div>
+        <div class="mpd-status-box">
+            <div class="mpd-state state-unknown">
+            </div>
+        </div>
+    </div>
 
                 <div class="dmx-room-container">
-                    <div class="dmx-container dmx-master" data-variant="7ch" data-topic="dmx/plenar/master">
-                        <h2>DMX</h2>
-                        <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                        <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                        <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                    </div>
+                    
+    <h2>DMX</h2>
+    
+    <div class="dmx-container dmx-master" data-variant="7ch" data-topic="dmx/plenar/master">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">DMX</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
 
-                    <div class="dmx-detail-container hidden">
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne1">
-                            <h3>Vorne 1</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne2">
-                            <h3>Vorne 2</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne3">
-                            <h3>Vorne 3</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten1">
-                            <h3>Hinten 1</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten2">
-                            <h3>Hinten 2</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten3">
-                            <h3>Hinten 3</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten4">
-                            <h3>Hinten 4</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
+                    <div class="dmx-detail-container">
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne1">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Vorne 1</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne2">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Vorne 2</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/vorne3">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Vorne 3</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten1">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Hinten 1</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten2">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Hinten 2</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten3">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Hinten 3</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="7ch" data-topic="dmx/plenar/hinten4">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Hinten 4</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
                     </div>
-                    <div class="open-close-button"><span>v v v</span></div>
+                    <div class="open-close-button"><span>^^^</span></div>
                 </div>
             </div>
 
@@ -350,157 +748,280 @@
             <div class="room" id="keller">
                 <h1>Keller</h1>
 
-                <div class="preset-container">
-                    <div class="preset-button licht-an disabled" data-topic="preset/keller/on">
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/keller/on">
                         <span>All On</span>
                     </div>
-                    <div class="preset-button licht-aus disabled" data-topic="preset/keller/off">
+                    <div class="function-button" data-room="keller">
+                        <span>Functions</span>
+                    </div>
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/keller/off">
                         <span>All Off</span>
                     </div>
                 </div>
 
                 <div class="licht-container">
                     <div class="licht-button licht-unknown" data-topic="licht/keller/loet">
-                        <span>Löt</span>
-                    </div>
+        <span>Löt</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="licht/keller/mitte">
-                        <span>Mitte</span>
-                    </div>
+        <span>Mitte</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="licht/keller/vorne">
-                        <span>Vorne</span>
-                    </div>
-		    <br>
+        <span>Vorne</span>
+    </div>
+                    <br />
                     <div class="licht-button licht-unknown" data-topic="led/keller/werkbankwarm">
-                        <span>Werkbank Warm</span>
-                    </div>
+        <span>Werkbank Warm</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="led/keller/werkbankkalt">
-                        <span>Werkbank Kalt</span>
-                    </div>
-		    <br>
+        <span>Werkbank Kalt</span>
+    </div>
+                    <br />
                     <div class="licht-button licht-unknown" data-topic="led/keller/hintenwarm">
-                        <span>Hinten Warm</span>
-                    </div>
+        <span>Hinten Warm</span>
+    </div>
                     <div class="licht-button licht-unknown" data-topic="led/keller/hintenkalt">
-                        <span>Hinten Kalt</span>
-                    </div>
+        <span>Hinten Kalt</span>
+    </div>
                 </div>
 
                 <div class="mpd-container" data-topic="mpd/keller">
-                    <div class="mpd-control-box">
-                        <div class="mpd-button disabled" data-function="play">
-                            <span>&#x23f5;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="pause">
-                            <span>&#x23f8;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="stop">
-                            <span>&#x23f9;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="prev">
-                            <span>&#x23ee;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="next">
-                            <span>&#x23ed;</span>
-                        </div>
-                    </div>
-                    <div class="mpd-status-box">
-                        <div class="mpd-state state-unknown">
-                        </div>
-                    </div>
-                </div>
+        <div class="mpd-control-box">
+            <div class="mpd-button disabled" data-function="play">
+                
+                <span>&#x23f5;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="pause">
+                <span>&#x23f8;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="stop">
+                <span>&#x23f9;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="prev">
+                <span>&#x23ee;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="next">
+                <span>&#x23ed;</span>
+            </div>
+        </div>
+        <div class="mpd-status-box">
+            <div class="mpd-state state-unknown">
+            </div>
+        </div>
+    </div>
             </div>
 
 
             <div class="room" id="fnordcenter">
                 <h1>Fnordcenter</h1>
 
-                <div class="preset-container">
-                    <div class="preset-button licht-an disabled" data-topic="preset/fnord/on">
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/fnord/on">
                         <span>All On</span>
                     </div>
-                    <div class="preset-button licht-aus disabled" data-topic="preset/fnord/off">
+                    <div class="function-button" data-room="fnordcenter">
+                        <span>Functions</span>
+                    </div>
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/fnord/off">
                         <span>All Off</span>
                     </div>
                 </div>
 
                 <div class="licht-container">
                     <div class="licht-button licht-unknown" data-topic="licht/fnord/links">
-                        <span>Links</span>
-                    </div>
-                        <div class="licht-button licht-unknown" data-topic="licht/fnord/rechts">
-                        <span>Rechts</span>
-                    </div>
+        <span>Links</span>
+    </div>
+                    <div class="licht-button licht-unknown" data-topic="licht/fnord/rechts">
+        <span>Rechts</span>
+    </div>
+                    <br />
+                    <div class="licht-button licht-unknown" data-topic="relais/fnord/dmx">
+        <span>DMX Kannen</span>
+    </div>
+                    <div class="licht-button licht-unknown" data-topic="relais/fnord/audio">
+        <span>Laut- sprecher</span>
+    </div>
                 </div>
 
                 <div class="fenster-container">
                     <div class="fenster-box fenster-unknown" data-topic="fenster/fnord/links">
-                        <span>Links</span>
-                    </div>
+        <span>Links</span>
+    </div>
                     <div class="fenster-box fenster-unknown" data-topic="fenster/fnord/rechts">
-                        <span>Rechts</span>
-                    </div>
+        <span>Rechts</span>
+    </div>
                 </div>
 
                 <div class="mpd-container" data-topic="mpd/fnord">
-                    <div class="mpd-control-box">
-                        <div class="mpd-button disabled" data-function="play">
-                            <span>&#x23f5;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="pause">
-                            <span>&#x23f8;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="stop">
-                            <span>&#x23f9;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="prev">
-                            <span>&#x23ee;</span>
-                        </div>
-                        <div class="mpd-button disabled" data-function="next">
-                            <span>&#x23ed;</span>
-                        </div>
-                    </div>
-                    <div class="mpd-status-box">
-                        <div class="mpd-state state-unknown">
-                        </div>
-                    </div>
-                </div>
+        <div class="mpd-control-box">
+            <div class="mpd-button disabled" data-function="play">
+                
+                <span>&#x23f5;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="pause">
+                <span>&#x23f8;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="stop">
+                <span>&#x23f9;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="prev">
+                <span>&#x23ee;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="next">
+                <span>&#x23ed;</span>
+            </div>
+        </div>
+        <div class="mpd-status-box">
+            <div class="mpd-state state-unknown">
+            </div>
+        </div>
+    </div>
 
                 <div class="dmx-room-container">
-                    <div class="dmx-container dmx-master" data-variant="4ch" data-topic="dmx/fnord/master">
-                        <h2>DMX</h2>
-                        <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                        <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                        <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                    </div>
+                    
+    <h2>DMX</h2>
+    
+    <div class="dmx-container dmx-master" data-variant="4ch" data-topic="dmx/fnord/master">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">DMX</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
 
-                    <div class="dmx-detail-container hidden">
-                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/schranklinks">
-                            <h3>Schrank links</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/schrankrechts">
-                            <h3>Schrank rechts</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/fairyfenster">
-                            <h3>Fairy Fenster</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
-                        <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/scummfenster">
-                            <h3>SCUMM fenster</h3>
-                            <input class="dmx-range" data-color="red" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="green" type="range" min="0" max="255"><br />
-                            <input class="dmx-range" data-color="blue" type="range" min="0" max="255">
-                        </div>
+                    <div class="dmx-detail-container">
+                        
+    <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/schranklinks">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Schrank links</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/schrankrechts">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Schrank rechts</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/fairyfenster">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">Fairy Fenster</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+                        
+    <div class="dmx-container" data-variant="4ch" data-topic="dmx/fnord/scummfenster">
+        <div class="dmx-color-row">
+            
+            <span class="dmx-color-window"></span>
+            
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">SCUMM Fenster</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
                     </div>
-                    <div class="open-close-button"><span>v v v</span></div>
+                    <div class="open-close-button"><span>^^^</span></div>
                 </div>
+            </div>
+
+            <div id="rightpane-container">
+                <div id="shutdown-container">
+                    <div class="shutdown-button disabled" id="shutdown">
+                        <span>Shutdown</span>
+                    </div>
+                    <br />
+                    <div class="shutdown-button disabled" id="shutdown-force">
+                        <span>Force Shutdown</span>
+                    </div>
+                    <br />
+                    <div class="gate-button disabled" id="gate">
+                        <span>Open Gate</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="infrastructure-container">
+                <h1>Infrastruktur</h1>
+                <ul></ul>
             </div>
 
 
@@ -511,8 +1032,269 @@
     </div></div>
 </div>
 
-<script>window.jQuery || document.write("<script src='jquery-1.8.3.min.js'>\x3C/script>")</script>
-<script src="jquery.inputevent.js"></script>
+<div id="dmx-popup" class="dmx-popup">
+    <div class="dmx-popup-content">
+        <div class="popup-close-button" data-topic="foo">
+            <span>Close</span>
+        </div>
+        <h2>DMX</h2>
+        Changing: <span class="changing"></span>
+        <div class="dmx-container dmx-master show-colors show-buttons" style="">
+            <div>
+                <div class="dmx-colors">
+                    <h3>Color</h3>
+                    <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+                    <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+                    <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+                    <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+                </div>
+                <div class="dmx-button-row">
+                    <span style="color:white">⌞</span>
+                    <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+                    <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+                </div>
+            </div>
+            <div>
+                <h3>Functions</h3>
+                <div class="dmx-functions-flex-row">
+                    <div class="dmx-functions">
+                        <input class="dmx-range" data-function="fade" title="Fading Speed" type="range" min="0" max="255" value="128">
+                        <div class="dmx-functions-button-row">
+                            <span style="color:white">⌞</span>
+                            <div class="dmx-control-button disabled" data-action="fade"><span>Fade</span></div>
+                        </div>
+                    </div>
+                    <div class="dmx-functions">
+                        <input class="dmx-range" data-function="flash" title="Flashing Speed" type="range" min="0" max="255" value="128">
+                        <div class="dmx-functions-button-row">
+                            <span style="color:white">⌞</span>
+                            <div class="dmx-control-button disabled" data-action="flash"><span>Flash</span></div>
+                        </div>
+                    </div>
+                    <div class="dmx-functions">
+                        <input class="dmx-range" data-function="sound-active" title="Sensitivity" type="range" min="0" max="255" value="128">
+                        <div class="dmx-functions-button-row">
+                            <span style="color:white">⌞</span>
+                            <div class="dmx-control-button disabled" data-action="sound-active"><span>Sound Active</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-singles dmx-detail-container"></div>
+    </div>
+</div>
+
+<div id="functions-popup" class="functions-popup">
+    <div class="functions-popup-content">
+        <div class="popup-close-button" data-topic="foo">
+            <span>Close</span>
+        </div>
+        <ul class='tabbar'>
+            <li class="room-name">Plenarsaal</li>
+            <li class="tab-button tab-presets" data-tab="presets">Presets</li>
+            <li class="tab-button tab-kitchenlight" data-tab="kitchenlight">Kitchenlight</li>
+            <li class="tab-button tab-media" data-tab="media">Media</li>
+        </ul>
+        <div class="tab-content tab-presets">
+        </div>
+        <div class="tab-content tab-kitchenlight">
+        </div>
+        <div class="tab-content tab-media">
+            <div class="beamer-container">
+                <h2>Beamer</h2>
+                <div class="beamer-content">
+                    <div class="beamer-button disabled power" data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8E11E}'>
+        <span>&#x23fb;</span>
+    </div>
+                    <div class="beamer-button disabled threed" data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C851AE}'>
+        <span>3D</span>
+    </div>
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8F10E}'>
+        <span>Hide</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C806F9}'>
+        <span>Asp Ratio</span>
+    </div>
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8B14E}'>
+        <span>Resync</span>
+    </div>
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C831CE}'>
+        <span>Source</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8D12E}'>
+        <span>Zoom</span>
+    </div>
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C88679}'>
+        <span>Mute</span>
+    </div>
+                    <div class="beamer-button disabled e" data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C801FE}'>
+        <span>e</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled space-up" data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C841BE}'>
+        <span>Up</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8C13E}'>
+        <span>Left</span>
+    </div>
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C821DE}'>
+        <span>Menu</span>
+    </div>
+                    <div class="beamer-button disabled " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8817E}'>
+        <span>Right</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled space-down" data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8A15E}'>
+        <span>Down</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C85AA5}'>
+        <span>1</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8DA25}'>
+        <span>2</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C83AC5}'>
+        <span>3</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8BA45}'>
+        <span>PgUp</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8A659}'>
+        <span>4</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C86699}'>
+        <span>5</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8E619}'>
+        <span>6</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C87986}'>
+        <span>PgDn</span>
+    </div>
+                    <br />
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C87A85}'>
+        <span>7</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C852AD}'>
+        <span>8</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8D22D}'>
+        <span>9</span>
+    </div>
+                    <div class="beamer-button disabled small " data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": 0x10C8FA05}'>
+        <span>0</span>
+    </div>
+                </div>
+            </div>
+            <div class="atem-container">
+                <h2>Atem</h2>
+                <div class="atem-content">
+                    <h3>Sources</h3>
+                    <div class="sources"></div>
+                    <h3>Output</h3>
+                    <div class="outputs"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template-dmx-rgb" type="text/plain">
+    <div class="dmx-container show-buttons show-colors" data-variant="{ variant }" data-topic="{ topic }">
+        <div class="dmx-color-row">
+            <span class="dmx-color-window"></span>
+            <span class="dmx-name">{ text }</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+            <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+        </div>
+    </div>
+</script>
+
+<script id="template-dmx-rgbw" type="text/plain">
+    <div class="dmx-container show-buttons show-colors" data-variant="{ variant }" data-topic="{ topic }">
+        <div class="dmx-color-row">
+            <span class="dmx-color-window"></span>
+            <span class="dmx-name">{ text }</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+            <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+        </div>
+    </div>
+</script>
+
+<script id="template-dmx-7ch" type="text/plain">
+    <div class="dmx-container show-buttons show-colors" data-variant="{ variant }" data-topic="{ topic }">
+        <div class="dmx-color-row">
+            <span class="dmx-color-window"></span>
+            <span class="dmx-name">{ text }</span>
+            
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+            <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+        </div>
+        <div class="dmx-functions">
+            <input class="dmx-range" data-function="fade" title="Fading Speed" type="range" min="0" max="255" value="128">
+            <div class="dmx-functions-button-row">
+                <span style="color:white">⌞</span>
+                <div class="dmx-control-button disabled" data-action="fade"><span>Fade</span></div>
+            </div>
+        </div>
+        <div class="dmx-functions">
+            <input class="dmx-range" data-function="flash" title="Flashing Speed" type="range" min="0" max="255" value="128">
+            <div class="dmx-functions-button-row">
+                <span style="color:white">⌞</span>
+                <div class="dmx-control-button disabled" data-action="flash"><span>Flash</span></div>
+            </div>
+        </div>
+        <div class="dmx-functions">
+            <input class="dmx-range" data-function="sound-active" title="Sensitivity" type="range" min="0" max="255" value="128">
+            <div class="dmx-functions-button-row">
+                <span style="color:white">⌞</span>
+                <div class="dmx-control-button disabled" data-action="sound-active"><span>Sound Active</span></div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="template-atem-button" type="text/plain">
+    <div class="atem-button" data-index="{ index }">
+        <span>{ text }</span>
+    </div>
+</script>
+
+<!-- <script>window.jQuery || document.write("<script src='jquery-1.8.3.min.js'>\x3C/script>")</script> -->
+<!-- <script src="jquery.inputevent.js"></script> -->
 <script src="mqttws31.js"></script>
 <script src="licht.js"></script>
 <script src="time.js"></script>

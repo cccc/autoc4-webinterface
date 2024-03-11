@@ -1,0 +1,540 @@
+{% macro licht_button(topic, text) -%}
+    <div class="licht-button licht-unknown" data-topic="{{ topic }}">
+        <span>{{ text }}</span>
+    </div>
+{%- endmacro %}
+{% macro fenster_box(topic, text) -%}
+    <div class="fenster-box fenster-unknown" data-topic="{{ topic }}">
+        <span>{{ text }}</span>
+    </div>
+{%- endmacro %}
+{% macro mpd_container(topic) -%}
+    <div class="mpd-container" data-topic="{{ topic }}">
+        <div class="mpd-control-box">
+            <div class="mpd-button disabled" data-function="play">
+                {# <span>&#x25b6;</span> #}
+                <span>&#x23f5;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="pause">
+                <span>&#x23f8;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="stop">
+                <span>&#x23f9;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="prev">
+                <span>&#x23ee;</span>
+            </div>
+            <div class="mpd-button disabled" data-function="next">
+                <span>&#x23ed;</span>
+            </div>
+        </div>
+        <div class="mpd-status-box">
+            <div class="mpd-state state-unknown">
+            </div>
+        </div>
+    </div>
+{%- endmacro %}
+{% macro dmx_container(topic, text, variant='7ch', hide_color_window=false, master_heading='DMX', ismaster=False) -%}
+    {% if ismaster %}
+    <h2>{{ master_heading }}</h2>
+    {% endif %}
+    <div class="dmx-container{{ ' dmx-master' if ismaster }}" data-variant="{{ variant }}" data-topic="{{ topic }}">
+        <div class="dmx-color-row">
+            {% if not hide_color_window %}
+            <span class="dmx-color-window"></span>
+            {% endif %}
+            <input class="dmx-checkbox" type="checkbox" />
+            <span class="dmx-name">{{ text }}</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            {% if variant=='rgbw' %}
+            <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+            {% endif %}
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled select" data-action="select"><span>Select</span></div>
+            <div class="dmx-control-button disabled open" data-action="open"><span>Open</span></div>
+        </div>
+    </div>
+{%- endmacro %}
+{% macro dmx_master_container(topic, text='DMX', variant='7ch', hide_color_window=false, master_heading='DMX') -%}
+    {{ dmx_container(topic, text, variant, hide_color_window, master_heading, True) }}
+{%- endmacro %}
+{% macro beamer_button(data, text, small=false, extra_class='') -%}
+    <div class="beamer-button disabled{{ ' small' if small}} {{ extra_class }}" data-topic="remote/plenar/ir/cmnd/IRsend" data-mqtt-message='{"protocol": "NEC", "bits": 32, "data": {{ data }}}'>
+        <span>{{ text }}</span>
+    </div>
+{%- endmacro %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width">
+
+    <title>Club · Panel</title>
+
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+</head>
+<body>
+
+<div id="page">
+    <div><div id="header">
+            Club: <span id="status-box">Unknown</span>
+            <div id="time-container">
+                Date: <span id="time-box">Unknown</span>
+            </div>
+    </div></div>
+
+
+    <div><div id="content">
+
+            <div class="room" id="wohnzimmer">
+                <h1>Wohnzimmer</h1>
+
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/wohnzimmer/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="function-button" data-room="wohnzimmer">
+                        <span>Functions</span>
+                    </div>
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/wohnzimmer/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
+                    {{ licht_button('licht/wohnzimmer/tuer', 'Tür') }}
+                    {{ licht_button('licht/wohnzimmer/mitte', 'Mitte') }}
+                    {{ licht_button('licht/wohnzimmer/kueche', 'Küche') }}
+                    <br>
+                    {{ licht_button('licht/wohnzimmer/gang', 'Gang') }}
+                </div>
+
+                <div class="licht-container">
+                    {{ licht_button('power/wohnzimmer/kitchenlight', 'Kitchen Light') }}
+                    <!--
+                    <br>
+                    {{ licht_button('socket/wohnzimmer/screen/a', 'Lese- leuchte') }}
+                    {{ licht_button('socket/wohnzimmer/screen/b', 'Info- screen') }}
+                    -->
+                </div>
+
+                <div class="fenster-container">
+                    {{ fenster_box('fenster/wohnzimmer/links', 'Links') }}
+                    {{ fenster_box('fenster/wohnzimmer/rechts', 'Rechts') }}
+                </div>
+
+                {{ mpd_container('mpd/wohnzimmer') }}
+
+                <div class="dmx-room-container">
+                    {{ dmx_master_container('dmx/wohnzimmer/master') }}
+
+                    <div class="dmx-detail-container">
+                        {{ dmx_container('dmx/wohnzimmer/mitte1', 'Mitte 1') }}
+                        {{ dmx_container('dmx/wohnzimmer/mitte2', 'Mitte 2') }}
+                        {{ dmx_container('dmx/wohnzimmer/mitte3', 'Mitte 3') }}
+                        {{ dmx_container('dmx/wohnzimmer/tuer1', 'Tür 1') }}
+                        {{ dmx_container('dmx/wohnzimmer/tuer2', 'Tür 2') }}
+                        {{ dmx_container('dmx/wohnzimmer/tuer3', 'Tür 3') }}
+                        {{ dmx_container('dmx/wohnzimmer/gang', 'Gang') }}
+                        {{ dmx_container('dmx/wohnzimmer/baellebad', 'Bällebad') }}
+                    </div>
+                    <div class="open-close-button"><span>^^^</span></div>
+                </div>
+
+                <div class="dmx-room-container">
+                    <!--<h2>DMX Küche</h2>-->
+                    {{ dmx_master_container('', hide_color_window=True, master_heading='DMX Küche') }}
+
+                    <div class="dmx-detail-container">
+                        {{ dmx_container('dmx/wohnzimmer/tresen', 'Tresen', variant='rgbw') }}
+                        {{ dmx_container('dmx/wohnzimmer/tresen2', 'Tresen oben', variant='rgbw') }}
+                        {{ dmx_container('dmx/wohnzimmer/spuele1', 'Spüle', variant='rgbw') }}
+                        {{ dmx_container('dmx/wohnzimmer/spuele2', 'Spüle oben', variant='rgb') }}
+                        {{ dmx_container('dmx/wohnzimmer/chaosknoten', 'Chaosknoten', variant='rgb') }}
+                    </div>
+                    <div class="open-close-button"><span>^^^</span></div>
+                </div>
+            </div>
+
+
+            <div class="room" id="plenarsaal">
+                <h1>Plenarsaal</h1>
+
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/plenar/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="function-button" data-room="plenar">
+                        <span>Functions</span>
+                    </div>
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/plenar/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
+                    {{ licht_button('licht/plenar/vornewand', 'Vorne Wand') }}
+                    {{ licht_button('licht/plenar/vornefenster', 'Vorne Fenster') }}
+                    <br />
+                    {{ licht_button('licht/plenar/hintenwand', 'Hinten Wand') }}
+                    {{ licht_button('licht/plenar/hintenfenster', 'Hinten Fenster') }}
+                    <br />
+                    {{ licht_button('relais/plenar/dmx', 'DMX Kannen') }}
+                    {{ licht_button('relais/plenar/amp', 'Amp') }}
+                </div>
+
+                <div class="fenster-container">
+                    {{ fenster_box('fenster/plenar/vornelinks', 'Vorne Links') }}
+                    {{ fenster_box('fenster/plenar/vornerechts', 'Vorne Rechts') }}
+                    {{ fenster_box('fenster/plenar/hintenlinks', 'Hinten Links') }}
+                    {{ fenster_box('fenster/plenar/hintenrechts', 'Hinten Rechts') }}
+                </div>
+
+                {{ mpd_container('mpd/plenar') }}
+
+                <div class="dmx-room-container">
+                    {{ dmx_master_container('dmx/plenar/master') }}
+
+                    <div class="dmx-detail-container">
+                        {{ dmx_container('dmx/plenar/vorne1', 'Vorne 1') }}
+                        {{ dmx_container('dmx/plenar/vorne2', 'Vorne 2') }}
+                        {{ dmx_container('dmx/plenar/vorne3', 'Vorne 3') }}
+                        {{ dmx_container('dmx/plenar/hinten1', 'Hinten 1') }}
+                        {{ dmx_container('dmx/plenar/hinten2', 'Hinten 2') }}
+                        {{ dmx_container('dmx/plenar/hinten3', 'Hinten 3') }}
+                        {{ dmx_container('dmx/plenar/hinten4', 'Hinten 4') }}
+                    </div>
+                    <div class="open-close-button"><span>^^^</span></div>
+                </div>
+            </div>
+
+
+            <div class="room" id="keller">
+                <h1>Keller</h1>
+
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/keller/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="function-button" data-room="keller">
+                        <span>Functions</span>
+                    </div>
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/keller/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
+                    {{ licht_button('licht/keller/loet', 'Löt') }}
+                    {{ licht_button('licht/keller/mitte', 'Mitte') }}
+                    {{ licht_button('licht/keller/vorne', 'Vorne') }}
+                    <br />
+                    {{ licht_button('led/keller/werkbankwarm', 'Werkbank Warm') }}
+                    {{ licht_button('led/keller/werkbankkalt', 'Werkbank Kalt') }}
+                    <br />
+                    {{ licht_button('led/keller/hintenwarm', 'Hinten Warm') }}
+                    {{ licht_button('led/keller/hintenkalt', 'Hinten Kalt') }}
+                </div>
+
+                {{ mpd_container('mpd/keller') }}
+            </div>
+
+
+            <div class="room" id="fnordcenter">
+                <h1>Fnordcenter</h1>
+
+                <div class="roomfunc-container">
+                    <div class="roompreset-button licht-an disabled" data-topic="preset/fnord/on">
+                        <span>All On</span>
+                    </div>
+                    <div class="function-button" data-room="fnordcenter">
+                        <span>Functions</span>
+                    </div>
+                    <div class="roompreset-button licht-aus disabled" data-topic="preset/fnord/off">
+                        <span>All Off</span>
+                    </div>
+                </div>
+
+                <div class="licht-container">
+                    {{ licht_button('licht/fnord/links', 'Links') }}
+                    {{ licht_button('licht/fnord/rechts', 'Rechts') }}
+                    <br />
+                    {{ licht_button('relais/fnord/dmx', 'DMX Kannen') }}
+                    {{ licht_button('relais/fnord/audio', 'Laut- sprecher') }}
+                </div>
+
+                <div class="fenster-container">
+                    {{ fenster_box('fenster/fnord/links', 'Links') }}
+                    {{ fenster_box('fenster/fnord/rechts', 'Rechts') }}
+                </div>
+
+                {{ mpd_container('mpd/fnord') }}
+
+                <div class="dmx-room-container">
+                    {{ dmx_master_container('dmx/fnord/master', variant='4ch') }}
+
+                    <div class="dmx-detail-container">
+                        {{ dmx_container('dmx/fnord/schranklinks', 'Schrank links',   variant='4ch') }}
+                        {{ dmx_container('dmx/fnord/schrankrechts', 'Schrank rechts', variant='4ch') }}
+                        {{ dmx_container('dmx/fnord/fairyfenster', 'Fairy Fenster',   variant='4ch') }}
+                        {{ dmx_container('dmx/fnord/scummfenster', 'SCUMM Fenster',   variant='4ch') }}
+                    </div>
+                    <div class="open-close-button"><span>^^^</span></div>
+                </div>
+            </div>
+
+            <div id="rightpane-container">
+                <div id="shutdown-container">
+                    <div class="shutdown-button disabled" id="shutdown">
+                        <span>Shutdown</span>
+                    </div>
+                    <br />
+                    <div class="shutdown-button disabled" id="shutdown-force">
+                        <span>Force Shutdown</span>
+                    </div>
+                    <br />
+                    <div class="gate-button disabled" id="gate">
+                        <span>Open Gate</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="infrastructure-container">
+                <h1>Infrastruktur</h1>
+                <ul></ul>
+            </div>
+
+
+    </div></div>
+
+    <div><div id="footer">
+            &nbsp;
+    </div></div>
+</div>
+
+<div id="dmx-popup" class="dmx-popup">
+    <div class="dmx-popup-content">
+        <div class="popup-close-button" data-topic="foo">
+            <span>Close</span>
+        </div>
+        <h2>DMX</h2>
+        Changing: <span class="changing"></span>
+        <div class="dmx-container dmx-master show-colors show-buttons" style="">
+            <div>
+                <div class="dmx-colors">
+                    <h3>Color</h3>
+                    <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+                    <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+                    <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+                    <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+                </div>
+                <div class="dmx-button-row">
+                    <span style="color:white">⌞</span>
+                    <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+                    <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+                </div>
+            </div>
+            <div>
+                <h3>Functions</h3>
+                <div class="dmx-functions-flex-row">
+                    <div class="dmx-functions">
+                        <input class="dmx-range" data-function="fade" title="Fading Speed" type="range" min="0" max="255" value="128">
+                        <div class="dmx-functions-button-row">
+                            <span style="color:white">⌞</span>
+                            <div class="dmx-control-button disabled" data-action="fade"><span>Fade</span></div>
+                        </div>
+                    </div>
+                    <div class="dmx-functions">
+                        <input class="dmx-range" data-function="flash" title="Flashing Speed" type="range" min="0" max="255" value="128">
+                        <div class="dmx-functions-button-row">
+                            <span style="color:white">⌞</span>
+                            <div class="dmx-control-button disabled" data-action="flash"><span>Flash</span></div>
+                        </div>
+                    </div>
+                    <div class="dmx-functions">
+                        <input class="dmx-range" data-function="sound-active" title="Sensitivity" type="range" min="0" max="255" value="128">
+                        <div class="dmx-functions-button-row">
+                            <span style="color:white">⌞</span>
+                            <div class="dmx-control-button disabled" data-action="sound-active"><span>Sound Active</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="popup-singles dmx-detail-container"></div>
+    </div>
+</div>
+
+<div id="functions-popup" class="functions-popup">
+    <div class="functions-popup-content">
+        <div class="popup-close-button" data-topic="foo">
+            <span>Close</span>
+        </div>
+        <ul class='tabbar'>
+            <li class="room-name">Plenarsaal</li>
+            <li class="tab-button tab-presets" data-tab="presets">Presets</li>
+            <li class="tab-button tab-kitchenlight" data-tab="kitchenlight">Kitchenlight</li>
+            <li class="tab-button tab-media" data-tab="media">Media</li>
+        </ul>
+        <div class="tab-content tab-presets">
+        </div>
+        <div class="tab-content tab-kitchenlight">
+        </div>
+        <div class="tab-content tab-media">
+            <div class="beamer-container">
+                <h2>Beamer</h2>
+                <div class="beamer-content">
+                    {{ beamer_button('0x10C8E11E', '&#x23fb;'|safe, extra_class='power') }}
+                    {{ beamer_button('0x10C851AE', '3D', extra_class='threed') }}
+                    {{ beamer_button('0x10C8F10E', 'Hide') }}
+                    <br />
+                    {{ beamer_button('0x10C806F9', 'Asp Ratio') }}
+                    {{ beamer_button('0x10C8B14E', 'Resync') }}
+                    {{ beamer_button('0x10C831CE', 'Source') }}
+                    <br />
+                    {{ beamer_button('0x10C8D12E', 'Zoom') }}
+                    {{ beamer_button('0x10C88679', 'Mute') }}
+                    {{ beamer_button('0x10C801FE', 'e', extra_class='e') }}
+                    <br />
+                    {{ beamer_button('0x10C841BE', 'Up', extra_class='space-up') }}
+                    <br />
+                    {{ beamer_button('0x10C8C13E', 'Left') }}
+                    {{ beamer_button('0x10C821DE', 'Menu') }}
+                    {{ beamer_button('0x10C8817E', 'Right') }}
+                    <br />
+                    {{ beamer_button('0x10C8A15E', 'Down', extra_class='space-down') }}
+                    <br />
+                    {{ beamer_button('0x10C85AA5', '1', small=true) }}
+                    {{ beamer_button('0x10C8DA25', '2', small=true) }}
+                    {{ beamer_button('0x10C83AC5', '3', small=true) }}
+                    {{ beamer_button('0x10C8BA45', 'PgUp', small=true) }}
+                    <br />
+                    {{ beamer_button('0x10C8A659', '4', small=true) }}
+                    {{ beamer_button('0x10C86699', '5', small=true) }}
+                    {{ beamer_button('0x10C8E619', '6', small=true) }}
+                    {{ beamer_button('0x10C87986', 'PgDn', small=true) }}
+                    <br />
+                    {{ beamer_button('0x10C87A85', '7', small=true) }}
+                    {{ beamer_button('0x10C852AD', '8', small=true) }}
+                    {{ beamer_button('0x10C8D22D', '9', small=true) }}
+                    {{ beamer_button('0x10C8FA05', '0', small=true) }}
+                </div>
+            </div>
+            <div class="atem-container">
+                <h2>Atem</h2>
+                <div class="atem-content">
+                    <h3>Sources</h3>
+                    <div class="sources"></div>
+                    <h3>Output</h3>
+                    <div class="outputs"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="template-dmx-rgb" type="text/plain">
+    <div class="dmx-container show-buttons show-colors" data-variant="{ variant }" data-topic="{ topic }">
+        <div class="dmx-color-row">
+            <span class="dmx-color-window"></span>
+            <span class="dmx-name">{ text }</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+            <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+        </div>
+    </div>
+</script>
+
+<script id="template-dmx-rgbw" type="text/plain">
+    <div class="dmx-container show-buttons show-colors" data-variant="{ variant }" data-topic="{ topic }">
+        <div class="dmx-color-row">
+            <span class="dmx-color-window"></span>
+            <span class="dmx-name">{ text }</span>
+            <span class="power-button" data-action="power">&#x23fb;</span>
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="white" type="range" min="0" max="255" value="0">
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+            <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+        </div>
+    </div>
+</script>
+
+<script id="template-dmx-7ch" type="text/plain">
+    <div class="dmx-container show-buttons show-colors" data-variant="{ variant }" data-topic="{ topic }">
+        <div class="dmx-color-row">
+            <span class="dmx-color-window"></span>
+            <span class="dmx-name">{ text }</span>
+            {# <span class="power-button" data-action="power">&#x23fb;</span> #}
+        </div>
+        <div class="dmx-colors">
+            <input class="dmx-range" data-color="red" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="green" type="range" min="0" max="255" value="0">
+            <input class="dmx-range" data-color="blue" type="range" min="0" max="255" value="0">
+        </div>
+        <div class="dmx-button-row">
+            <span style="color:white">⌞</span>
+            <div class="dmx-control-button disabled white" data-action="white"><span>White</span></div>
+            <div class="dmx-control-button disabled off" data-action="off"><span>Off</span></div>
+        </div>
+        <div class="dmx-functions">
+            <input class="dmx-range" data-function="fade" title="Fading Speed" type="range" min="0" max="255" value="128">
+            <div class="dmx-functions-button-row">
+                <span style="color:white">⌞</span>
+                <div class="dmx-control-button disabled" data-action="fade"><span>Fade</span></div>
+            </div>
+        </div>
+        <div class="dmx-functions">
+            <input class="dmx-range" data-function="flash" title="Flashing Speed" type="range" min="0" max="255" value="128">
+            <div class="dmx-functions-button-row">
+                <span style="color:white">⌞</span>
+                <div class="dmx-control-button disabled" data-action="flash"><span>Flash</span></div>
+            </div>
+        </div>
+        <div class="dmx-functions">
+            <input class="dmx-range" data-function="sound-active" title="Sensitivity" type="range" min="0" max="255" value="128">
+            <div class="dmx-functions-button-row">
+                <span style="color:white">⌞</span>
+                <div class="dmx-control-button disabled" data-action="sound-active"><span>Sound Active</span></div>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="template-atem-button" type="text/plain">
+    <div class="atem-button" data-index="{ index }">
+        <span>{ text }</span>
+    </div>
+</script>
+
+<!-- <script>window.jQuery || document.write("<script src='jquery-1.8.3.min.js'>\x3C/script>")</script> -->
+<!-- <script src="jquery.inputevent.js"></script> -->
+<script src="mqttws31.js"></script>
+<script src="licht.js"></script>
+<script src="time.js"></script>
+</body>
+</html>
