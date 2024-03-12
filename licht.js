@@ -1118,15 +1118,19 @@ class FunctionsController {
         });
     }
 
-    open_popup(room='global') {
-        this.room = room;
-
-        // show only relevant tabs for this room
+    get_tabs_for_room(room) {
         const tabs_for_room = new Map(Object.entries({
             // 'wohnzimmer': Array.from(['presets', 'kitchenlight']),
             'plenar': Array.from(['presets', 'media']),
         }));
-        const tabs = tabs_for_room.has(room) ? tabs_for_room.get(room) : ['presets'];
+        return tabs_for_room.has(room) ? tabs_for_room.get(room) : ['presets'];
+    }
+
+    open_popup(room='global') {
+        this.room = room;
+
+        // show only relevant tabs for this room
+        const tabs = this.get_tabs_for_room(room);
         this.popup_element.querySelectorAll('ul.tabbar > li.tab-button').forEach(button => {
             if (tabs.includes(button.dataset.tab))
                 button.classList.remove('hidden');
@@ -1567,6 +1571,46 @@ class MqttController {
     }
 }
 
+class AnchorController {
+
+    on_load() {
+        const anchor = window.location.hash.substring(1);
+        if (!anchor)
+            return;
+        const components = anchor.split('/');
+        if (components.length != 2)
+            return;
+        const room = components[0];
+        const tab = components[1];
+        if (!(room in functions_controller.room_name_map)) // check if room is valid
+            return;
+        const tabs = functions_controller.get_tabs_for_room(room);
+        if (!tabs.includes(tab)) // check if tab is valid
+            return;
+        const tab_element = document.getElementById('functions-popup').querySelector(`ul.tabbar > li.tab-button[data-tab="${tab}"]`);
+        if (!tab_element) // should not fail
+            return;
+        window.location.hash = '';
+        functions_controller.open_popup(room);
+        functions_controller.on_tab_button_press(tab_element);
+    }
+
+    on_connect() {
+    }
+
+    on_disconnect() {
+    }
+
+    on_message(message) {
+    }
+
+    register_events() {
+    }
+
+    on_show() {
+    }
+}
+
 
 const controller_list = [];
 const general_controller = new GeneralController();
@@ -1576,6 +1620,7 @@ const infrastructure_controller = new InfrastructureController();
 const functions_controller = new FunctionsController();
 const preset_controller = new PresetController();
 const media_controller = new MediaController();
+const anchor_controller = new AnchorController();
 const mqtt_controller = new MqttController();
 controller_list.push(general_controller);
 controller_list.push(dmx_controller);
@@ -1584,6 +1629,7 @@ controller_list.push(infrastructure_controller);
 controller_list.push(functions_controller);
 controller_list.push(preset_controller);
 controller_list.push(media_controller);
+controller_list.push(anchor_controller);
 controller_list.push(mqtt_controller); // should be the last one in the list
 
 controller_list.forEach(ctl => ctl.on_load());
