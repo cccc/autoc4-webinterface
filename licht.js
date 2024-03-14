@@ -1157,6 +1157,8 @@ class FunctionsController {
 
         Array.from(button.parentElement.children).forEach(c => { c.classList.remove('selected') });
         button.classList.add('selected');
+        document.getElementById('functions-popup').querySelectorAll('.tab-content').forEach(t => { t.classList.remove('show') });
+        document.getElementById('functions-popup').querySelector(`.tab-content.tab-${button.dataset.tab}`).classList.add('show');
     }
 
     close_popup() {

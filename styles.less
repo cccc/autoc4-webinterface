@@ -645,15 +645,18 @@ div#footer {
   & > .tab-content {
     display: none;
   }
-  & > ul:has(> li.tab-presets.selected) ~.tab-content.tab-presets {
+  & > .tab-content.show {
     display: block;
   }
-  & > ul:has(> li.tab-kitchenlight.selected) ~.tab-content.tab-kitchenlight {
-    display: block;
-  }
-  & > ul:has(> li.tab-media.selected) ~.tab-content.tab-media {
-    display: block;
-  }
+  /* & > ul:has(> li.tab-presets.selected) ~.tab-content.tab-presets { */
+  /*   display: block; */
+  /* } */
+  /* & > ul:has(> li.tab-kitchenlight.selected) ~.tab-content.tab-kitchenlight { */
+  /*   display: block; */
+  /* } */
+  /* & > ul:has(> li.tab-media.selected) ~.tab-content.tab-media { */
+  /*   display: block; */
+  /* } */
 }
 
 // PRESETS
