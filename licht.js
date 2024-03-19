@@ -1508,13 +1508,14 @@ class MqttController {
     }
 
     init_websockets() {
+        console.log('setting up mqtt connection');
         //this.mqtt_client = new Messaging.Client(location.hostname, Number(location.port), this.generate_clientid());
         //this.mqtt_client = new Messaging.Client(location.hostname, 9000, this.generate_clientid());
         this.mqtt_client = new Messaging.Client('172.23.23.110', 9000, this.generate_clientid());
         // this.mqtt_client = new Messaging.Client('127.0.0.1', 9000, this.generate_clientid());
-        this.mqtt_client.onConnectionLost = this.callback_connection_lost;
-        this.mqtt_client.onMessageArrived = this.callback_message_arrived;
-        this.mqtt_client.connect({onSuccess:this.callback_connect, onFailure:this.callback_connect_failure});
+        this.mqtt_client.onConnectionLost = this.callback_connection_lost.bind(this);
+        this.mqtt_client.onMessageArrived = this.callback_message_arrived.bind(this);
+        this.mqtt_client.connect({onSuccess:this.callback_connect.bind(this), onFailure:this.callback_connect_failure.bind(this)});
     }
 
     // generate a random mqtt clientid
@@ -1527,7 +1528,7 @@ class MqttController {
 
     callback_connect_failure() {
         console.log('mqtt connect failed, retrying in 5 sec');
-        setTimeout(this.init_websockets, 5000);
+        setTimeout(this.init_websockets.bind(this), 5000);
     }
 
     callback_connect() {
@@ -1551,7 +1552,7 @@ class MqttController {
             // this is broken in the callback
             mqtt_controller.connected = false;
             controller_list.forEach(ctl => ctl.on_disconnect());
-            setTimeout(this.init_websockets, 5000);
+            setTimeout(this.init_websockets.bind(this), 5000);
         } catch (error) {
             console.error(error);
             throw error;
