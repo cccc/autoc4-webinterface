@@ -1377,12 +1377,14 @@ class MediaController {
                 if ([0, 1, 2, 3, 4].includes(v.port_type)) {
                     let template = document.getElementById(`template-atem-button`).innerHTML;
                     template = template.replace('{ text }', v.short_name);
+                    template = template.replace('{ title }', v.name);
                     template = template.replace('{ index }', k);
                     new_sources += template;
                 }
                 if ([0, 128].includes(v.port_type) || v.index == 9001) { // HDMIs, program, preview, multiview
                     let template = document.getElementById(`template-atem-button`).innerHTML;
                     template = template.replace('{ text }', v.short_name);
+                    template = template.replace('{ title }', v.name);
                     template = template.replace('{ index }', k);
                     new_outputs += template;
                 }
