@@ -605,7 +605,7 @@ div#footer {
 .functions-popup-content {
   .base-popup-content;
 
-  & > ul {
+  & ul {
     list-style-type: none;
     overflow: hidden;
     padding: 0 1em 0 1em;
@@ -804,6 +804,103 @@ div#footer {
     &.active { .button3d(#ef4545); }
     &.preview.disabled { .effect3d(desaturate(#DD8800, 80%)); color:#444444; }
     &.active.disabled { .effect3d(desaturate(#DD0000, 80%)); color:#444444; }
+  }
+}
+
+// BUSLEISTE
+
+.tab-content.tab-busleiste {
+
+  h3 {
+    display: inline-block;
+    margin-left: .5em;
+    margin-bottom: .5em;
+  }
+
+  .module {
+    border-radius:1em;
+    border-color:#ffffcc;
+    border-width:2px;
+    border-style:solid;
+    max-width:25em;
+    padding-left:.5em;
+    padding-right:.5em;
+    padding-bottom:.5em;
+    margin-bottom:1em;
+
+    &.active > h3:after {
+      content: '( \23f5  )';
+      color: green;
+      font-size: 70%;
+      margin-left: 1em;
+      font-weight: none;
+    }
+
+    &.paused > h3:after {
+      content: '( \23f8  )';
+      color: orange;
+      font-size: 70%;
+      margin-left: 1em;
+      font-weight: none;
+    }
+  }
+
+  .data-container {
+    border-color:#ffffcc;
+    border-width:2px 0 0 0;
+    border-style:solid;
+    padding:.5em;
+    padding-bottom:0;
+
+    &.hidden {
+      display:none;
+    }
+
+    .submit-button {
+      .base-button;
+      width:5em;
+      height:2em;
+      margin: 0.3em;
+      color:black;
+
+      .button3d(lightblue);
+
+      &.disabled { .effect3d(#8899AA); color:lightgrey; }
+    }
+  }
+
+  .button-container {
+    font-size:0;
+    margin-top:.5rem;
+    float:right;
+
+    .activate-button {
+      .base-button;
+      width:2em;
+      height:2em;
+      margin: 0.3em;
+      color:black;
+
+      &.module-active { .button3d(#45ef45); }
+      &.module-inactive { .button3d(#ef4545); }
+      &.module-unknown { .button3d(#333333); color:#888888; }
+      &.module-unknown.module-active { .effect3d(desaturate(#00DD00, 80%)); color:#444444; }
+      &.module-unknown.module-inactive { .effect3d(desaturate(#DD0000, 80%)); color:#444444; }
+    }
+
+    .enable-button {
+      .base-button;
+      width:2em;
+      height:2em;
+      margin: 0.3em;
+      color:black;
+
+      &.module-enabled { .button3d(#45ef45); }
+      &.module-disabled { .button3d(#ef4545); }
+      &.module-unknown { .button3d(#333333); color:#888888; }
+      &.module-unknown.module-enabled { .effect3d(desaturate(#00DD00, 80%)); color:#444444; }
+      &.module-unknown.module-disabled { .effect3d(desaturate(#DD0000, 80%)); color:#444444; }
+    }
   }
 }
 

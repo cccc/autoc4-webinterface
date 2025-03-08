@@ -384,10 +384,16 @@
             <li class="tab-button tab-presets" data-tab="presets">Presets</li>
             <li class="tab-button tab-kitchenlight" data-tab="kitchenlight">Kitchenlight</li>
             <li class="tab-button tab-media" data-tab="media">Media</li>
+            <li class="tab-button tab-busleiste" data-tab="busleiste">Busleiste</li>
         </ul>
         <div class="tab-content tab-presets">
         </div>
         <div class="tab-content tab-kitchenlight">
+            <ul class='tabbar'>
+                <li class="tab-button tab-presets" data-tab="presets">Presets</li>
+                <li class="tab-button tab-kitchenlight" data-tab="kitchenlight">Kitchenlight</li>
+                <li class="tab-button tab-media" data-tab="media">Media</li>
+            </ul>
         </div>
         <div class="tab-content tab-media">
             <div class="beamer-container">
@@ -438,6 +444,8 @@
                     <div class="outputs"></div>
                 </div>
             </div>
+        </div>
+        <div class="tab-content tab-busleiste">
         </div>
     </div>
 </div>
@@ -526,6 +534,25 @@
 <script id="template-atem-button" type="text/plain">
     <div class="atem-button" data-index="{ index }" title="{ title }">
         <span>{ text }</span>
+    </div>
+</script>
+<script id="template-busleiste-module" type="text/plain">
+    <div class="module" data-name="{ name }">
+        <h3>{ name }</h3>
+        <div class="button-container">
+            <div class="activate-button module-unknown">
+                <span>&#x23f5</span>
+            </div>
+            <div class="enable-button module-unknown">
+                <span>&#x23fb</span>
+            </div>
+        </div>
+        <div class="data-container">
+            <textarea rows="4" cols="40"></textarea>
+            <div class="submit-button">
+                <span>Submit</span>
+            </div>
+        </div>
     </div>
 </script>
 

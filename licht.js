@@ -158,7 +158,7 @@ class GeneralController {
     }
 
     // publish (on ? 0x01 : 0x00) message to a topic
-    onoff(topic, on) {
+    static onoff(topic, on) {
         const buf = new Uint8Array(1);
         buf[0] = on ? 1 : 0;
         const message = new Messaging.Message(buf);
@@ -1121,6 +1121,7 @@ class FunctionsController {
     get_tabs_for_room(room) {
         const tabs_for_room = new Map(Object.entries({
             // 'wohnzimmer': Array.from(['presets', 'kitchenlight']),
+            'wohnzimmer': Array.from(['presets', 'busleiste']),
             'plenar': Array.from(['presets', 'media']),
         }));
         return tabs_for_room.has(room) ? tabs_for_room.get(room) : ['presets'];
@@ -1173,6 +1174,8 @@ class FunctionsController {
             case "presets": preset_controller.on_show();
                 break;
             case "media": media_controller.on_show();
+                break;
+            case "busleiste": busleiste_controller.on_show();
                 break;
         }
     }
@@ -1616,6 +1619,220 @@ class AnchorController {
     }
 }
 
+class BusleisteController {
+
+    constructor() {
+        this.container = document.querySelector('.tab-content.tab-busleiste');
+        this.active_module = undefined;
+        this.active_interrupt = undefined;
+        this.modules = new Map();
+    }
+
+    on_load() {
+    }
+
+    on_connect() {
+        mqtt_controller.mqtt_client.subscribe('busleiste/active_interrupt');
+        mqtt_controller.mqtt_client.subscribe('busleiste/active_module');
+        mqtt_controller.mqtt_client.subscribe('busleiste/modules');
+        mqtt_controller.mqtt_client.subscribe('busleiste/modules/+/enabled');
+        mqtt_controller.mqtt_client.subscribe('busleiste/modules/+/settings');
+
+        this.container.querySelectorAll('.submit-button').forEach(button => button.classList.remove('disabled'));
+    }
+
+    on_disconnect() {
+        this.container.querySelectorAll('.activate-button').forEach(button => button.classList.add('module-unknown'));
+        this.container.querySelectorAll('.enable-button').forEach(button => button.classList.add('module-unknown'));
+        this.container.querySelectorAll('.submit-button').forEach(button => button.classList.add('disabled'));
+
+        this.container.querySelectorAll('.module').forEach(button => button.classList.remove('paused'));
+        this.container.querySelectorAll('.module').forEach(button => button.classList.remove('active'));
+    }
+
+    on_message(message) {
+
+        if (message.destinationName == 'busleiste/modules') {
+
+            // reset existance values
+            for (const [_module_name, module_data] of this.modules) {
+                module_data.exists = false;
+            }
+
+            const module_map = JSON.parse(message.payloadString);
+            for (const [_, value] of Object.entries(module_map)) {
+                const module_name = value[0];
+                const module_human_name = value[1];
+
+                if (!this.modules.has(module_name)) {
+                    this.modules.set(module_name, new Object());
+                    this.modules.get(module_name).enabled = undefined;
+                }
+
+                this.modules.get(module_name).name = module_name;
+                this.modules.get(module_name).human_name = module_human_name;
+                this.modules.get(module_name).exists = true;
+                this.modules.get(module_name).enabled = undefined;
+            };
+
+            this.update_module_widget_list();
+
+            return true;
+        }
+
+        if (/^busleiste\/modules\/[^\/]+\/enabled$/.test(message.destinationName)) {
+
+            const module_name = message.destinationName.split('/')[2];
+            const enabled = (message.payloadBytes[0] != 0);
+
+            if (!this.modules.has(module_name)) {
+                this.modules.set(module_name, new Object());
+                this.modules.set(module_name).name = module_name;
+                this.modules.set(module_name).exists = false;
+            }
+
+            this.modules.get(module_name).enabled = enabled;
+
+            // update enabled status
+            if (this.modules.get(module_name).exists) {
+                const module_node = this.container.querySelector(`.module[data-name="${module_name}"]`);
+                const enable_button = module_node.querySelector('.enable-button');
+                if (enabled === true) {
+                    enable_button.classList.remove('module-unknown');
+                    enable_button.classList.remove('module-disabled');
+                    enable_button.classList.add('module-enabled');
+                } else if (enabled === false) {
+                    enable_button.classList.remove('module-unknown');
+                    enable_button.classList.add('module-disabled');
+                    enable_button.classList.remove('module-enabled');
+                }
+            }
+
+            return true;
+        }
+
+        if (message.destinationName == 'busleiste/active_module') {
+            this.active_module = message.payloadString;
+            this.update_module_widget_states();
+        }
+
+        if (message.destinationName == 'busleiste/active_interrupt') {
+            this.active_interrupt = message.payloadString === '' ? undefined : message.payloadString;
+            this.update_module_widget_states();
+        }
+    }
+
+    update_module_widget_list() {
+        // add existant module not yet in the list
+        for (const [module_name, module_data] of this.modules) {
+            const module_node = this.container.querySelector(`.module[data-name="${module_name}"]`);
+
+            // remove non-existant module widget
+            if (module_node != null && !module_data.exists) {
+                module_node.remove();
+            }
+
+            // add missing widget
+            if (module_node == null && module_data.exists) {
+
+                let template = document.getElementById('template-busleiste-module').innerHTML;
+                template = template.replaceAll('{ name }', module_name);
+                const template_node = document.createElement('template');
+                template_node.innerHTML = template.trim();
+                const new_node = template_node.content.firstChild;
+                this.container.appendChild(new_node);
+
+                const activate_button = new_node.querySelector('.activate-button');
+                const enable_button = new_node.querySelector('.enable-button');
+                if (module_data.enabled === true) {
+                    enable_button.classList.remove('module-disabled');
+                    enable_button.classList.add('module-enabled');
+                } else if (module_data.enabled === false) {
+                    enable_button.classList.add('module-disabled');
+                    enable_button.classList.remove('module-enabled');
+                }
+
+                // register events
+                enable_button.addEventListener('click', event => {
+                    event.preventDefault();
+                    GeneralController.onoff(`busleiste/modules/${module_name}/enabled`, (module_data.enabled !== true));
+                });
+                activate_button.addEventListener('click', event => {
+                    event.preventDefault();
+                    const payload = module_name;
+                    const message = new Messaging.Message(payload);
+                    message.destinationName = 'busleiste/change_module';
+                    message.retained = true;
+                    mqtt_controller.mqtt_client.send(message);
+                });
+
+                if (module_name != 'Text') { // TODO this needs to be parametric
+                    const data_container = new_node.querySelector('.data-container');
+                    data_container.remove();
+                } else {
+                    const submit_button = new_node.querySelector('.submit-button');
+                    const textarea = new_node.querySelector('textarea');
+
+                    submit_button.addEventListener('click', event => {
+                        event.preventDefault();
+                        const text = textarea.value;
+                        const lines = text.split('\n');
+                        let payload;
+                        if (text == '') {
+                            payload = '';
+                        } else {
+                            while (lines.length < 4)
+                                lines.push('');
+                            payload = JSON.stringify(lines);
+                        }
+                        const message = new Messaging.Message(payload);
+                        message.destinationName = 'busleiste/modules/Text/settings';
+                        message.retained = true;
+                        mqtt_controller.mqtt_client.send(message);
+                    });
+                }
+            }
+        }
+
+        this.update_module_widget_states();
+    }
+
+    update_module_widget_states() {
+        this.container.querySelectorAll('.module').forEach(module_node => {
+            const activate_button = module_node.querySelector('.activate-button');
+            const module_name = module_node.dataset['name'];
+
+            if (this.active_module !== undefined) {
+                const active = (module_name == this.active_interrupt) || (module_name == this.active_module && this.active_interrupt === undefined);
+                const paused = (module_name == this.active_module && this.active_interrupt !== undefined);
+
+                activate_button.classList.remove('module-unknown');
+                if (module_name == this.active_module) {
+                    activate_button.classList.add('module-active');
+                    activate_button.classList.remove('module-inactive');
+                } else {
+                    activate_button.classList.remove('module-active');
+                    activate_button.classList.add('module-inactive');
+                }
+
+                if (active) {
+                    module_node.classList.add('active');
+                    module_node.classList.remove('paused');
+                } else if (paused) {
+                    module_node.classList.remove('active');
+                    module_node.classList.add('paused');
+                } else {
+                    module_node.classList.remove('active');
+                    module_node.classList.remove('paused');
+                }
+            }
+        });
+    }
+
+    on_show() {
+    }
+}
+
 
 const controller_list = [];
 const general_controller = new GeneralController();
@@ -1625,6 +1842,7 @@ const infrastructure_controller = new InfrastructureController();
 const functions_controller = new FunctionsController();
 const preset_controller = new PresetController();
 const media_controller = new MediaController();
+const busleiste_controller = new BusleisteController();
 const anchor_controller = new AnchorController();
 const mqtt_controller = new MqttController();
 controller_list.push(general_controller);
@@ -1634,6 +1852,7 @@ controller_list.push(infrastructure_controller);
 controller_list.push(functions_controller);
 controller_list.push(preset_controller);
 controller_list.push(media_controller);
+controller_list.push(busleiste_controller);
 controller_list.push(anchor_controller);
 controller_list.push(mqtt_controller); // should be the last one in the list
 
