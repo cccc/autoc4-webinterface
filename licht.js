@@ -152,7 +152,7 @@ class GeneralController {
                 event.preventDefault();
                 const topic = licht_button.dataset.topic;
                 const on = !licht_button.classList.contains('licht-an');
-                this.onoff(topic, on);
+                GeneralController.onoff(topic, on);
             });
         });
     }
