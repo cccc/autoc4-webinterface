@@ -26,6 +26,7 @@ class GeneralController {
         mqtt_controller.mqtt_client.subscribe('licht/+/+');
         mqtt_controller.mqtt_client.subscribe('relais/+/+');
         mqtt_controller.mqtt_client.subscribe('socket/+/+');
+        mqtt_controller.mqtt_client.subscribe('screen/+/+');
         mqtt_controller.mqtt_client.subscribe('led/+/+');
         mqtt_controller.mqtt_client.subscribe('power/+/+');
         mqtt_controller.mqtt_client.subscribe('fenster/+/+');
@@ -45,7 +46,13 @@ class GeneralController {
     }
 
     on_message(message) {
-        if (message.destinationName.startsWith('licht/') || message.destinationName.startsWith('power/') || message.destinationName.startsWith('led/') || message.destinationName.startsWith('relais/') || message.destinationName.startsWith('socket/')) {
+        if (message.destinationName.startsWith('licht/')
+            || message.destinationName.startsWith('led/')
+            || message.destinationName.startsWith('power/')
+            || message.destinationName.startsWith('relais/')
+            || message.destinationName.startsWith('socket/')
+            || message.destinationName.startsWith('screen/')
+        ) {
             if (message.payloadBytes.length != 1)
                 return;
 
