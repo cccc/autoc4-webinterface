@@ -29,6 +29,7 @@ class GeneralController {
         mqtt_controller.mqtt_client.subscribe('screen/+/+');
         mqtt_controller.mqtt_client.subscribe('led/+/+');
         mqtt_controller.mqtt_client.subscribe('power/+/+');
+        mqtt_controller.mqtt_client.subscribe('tasmota/+/+/POWER');
         mqtt_controller.mqtt_client.subscribe('fenster/+/+');
         mqtt_controller.mqtt_client.subscribe('club/status');
 
@@ -68,6 +69,32 @@ class GeneralController {
                     button.classList.add('licht-aus');
                 }
             });
+            return;
+        }
+
+        if (message.destinationName.startsWith('tasmota/')) {
+
+            const topic_prefix = message.destinationName.slice(0, -6);
+
+            // update tasmota-button state
+            document.querySelectorAll(`.tasmota-button[data-topic="${topic_prefix}"]`).forEach(button => {
+
+                if (message.payloadString == 'ON') {
+                    button.classList.remove('licht-unknown');
+                    button.classList.remove('licht-aus');
+                    button.classList.add('licht-an');
+                } else if (message.payloadString == 'OFF') {
+                    button.classList.remove('licht-unknown');
+                    button.classList.remove('licht-an');
+                    button.classList.add('licht-aus');
+                }
+            });
+
+            // for documentation purposes:
+            // configure mqtt messages of tasmota socket to use retain flag by publishing:
+            // for i in ['PowerRetain', 'InfoRetain', 'SensorRetain', 'StateRetain', 'StatusRetain', 'SwitchRetain', 'ButtonRetain']:
+            //     mqtt_client.publish(topic_prefix + '/cmnd/' + i, 'on', retain=True)
+
             return;
         }
 
@@ -162,6 +189,14 @@ class GeneralController {
                 GeneralController.onoff(topic, on);
             });
         });
+        content_container.querySelectorAll('div.licht-container .tasmota-button').forEach(tasmota_button => {
+            tasmota_button.addEventListener('click', event => {
+                event.preventDefault();
+                const topic = tasmota_button.dataset.topic + '/cmnd/power';
+                const on = !tasmota_button.classList.contains('licht-an');
+                GeneralController.onoff_tasmota(topic, on);
+            });
+        });
     }
 
     // publish (on ? 0x01 : 0x00) message to a topic
@@ -170,6 +205,14 @@ class GeneralController {
         buf[0] = on ? 1 : 0;
         const message = new Messaging.Message(buf);
         message.retained = true;
+        message.destinationName = topic;
+        mqtt_controller.mqtt_client.send(message);
+    }
+
+    // publish (on ? 0x01 : 0x00) message to a topic
+    static onoff_tasmota(topic, on) {
+        const message = new Messaging.Message(on ? 'on' : 'off');
+        message.retained = false;
         message.destinationName = topic;
         mqtt_controller.mqtt_client.send(message);
     }

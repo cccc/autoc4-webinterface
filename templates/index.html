@@ -3,6 +3,11 @@
         <span>{{ text }}</span>
     </div>
 {%- endmacro %}
+{% macro tasmota_button(topic, text) -%}
+    <div class="tasmota-button licht-unknown" data-topic="{{ topic }}">
+        <span>{{ text }}</span>
+    </div>
+{%- endmacro %}
 {% macro fenster_box(topic, text) -%}
     <div class="fenster-box fenster-unknown" data-topic="{{ topic }}">
         <span>{{ text }}</span>
@@ -192,6 +197,8 @@
                     <br />
                     {{ licht_button('relais/plenar/dmx', 'DMX Kannen') }}
                     {{ licht_button('relais/plenar/amp', 'Amp') }}
+                    <br />
+                    {{ tasmota_button('tasmota/plenar/hdmi-matrix', 'Matrix') }}
                 </div>
 
                 <div class="fenster-container">
