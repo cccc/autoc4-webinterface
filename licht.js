@@ -73,7 +73,7 @@ class GeneralController {
             return;
         }
 
-        if (message.destinationName.startsWith('tasmota/')) {
+        if (message.destinationName.startsWith('tasmota/') && message.destinationName.endsWith('/POWER')) {
 
             const topic_prefix = message.destinationName.slice(0, -6);
 
