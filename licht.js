@@ -40,6 +40,7 @@ class GeneralController {
 
     on_disconnect() {
         document.querySelectorAll('.licht-button').forEach(button => { button.classList.add('licht-unknown'); });
+        document.querySelectorAll('.tasmota-button').forEach(button => { button.classList.add('licht-unknown'); });
         document.querySelectorAll('.fenster-box').forEach(box => { box.classList.add('fenster-unknown'); });
         document.querySelectorAll('.shutdown-button').forEach(button => { button.classList.add('disabled'); });
         document.querySelectorAll('.gate-button').forEach(button => { button.classList.add('disabled'); });
