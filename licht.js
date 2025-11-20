@@ -1224,7 +1224,9 @@ class FunctionsController {
         switch (s.dataset.tab) {
             case "presets": preset_controller.on_show();
                 break;
-            case "media": media_controller.on_show();
+            case "media":
+                beamer_controller.on_show();
+                atem_controller.on_show();
                 break;
             case "busleiste": busleiste_controller.on_show();
                 break;
@@ -1313,16 +1315,11 @@ class PresetController {
     }
 }
 
-class MediaController {
+class BeamerController {
 
     constructor() {
         this.container = document.querySelector('.tab-content.tab-media');
         this.beamer_container = this.container.querySelector('.beamer-container');
-        this.atem_container = this.container.querySelector('.atem-container');
-        this.atem_content = this.atem_container.querySelector('.atem-content');
-        this.active_source = undefined;
-        this.active_preview = undefined;
-        this.active_output = undefined;
     }
 
     on_load() {
@@ -1331,7 +1328,6 @@ class MediaController {
 
     on_connect() {
         mqtt_controller.mqtt_client.subscribe('beamer/plenar/lamp_state');
-        mqtt_controller.mqtt_client.subscribe('atem/plenarsaal/#');
 
         this.beamer_container.querySelectorAll('.beamer-button').forEach(button => button.classList.remove('disabled'));
     }
@@ -1339,11 +1335,8 @@ class MediaController {
     on_disconnect() {
         this.beamer_container.classList.remove('online');
         this.beamer_container.classList.remove('offline');
-        this.atem_container.classList.remove('online');
-        this.atem_container.classList.remove('offline');
 
         this.beamer_container.querySelectorAll('.beamer-button').forEach(button => button.classList.add('disabled'));
-        this.disable_atem_buttons();
     }
 
     on_message(message) {
@@ -1361,6 +1354,50 @@ class MediaController {
 
             return true;
         }
+    }
+
+    register_events() {
+        this.beamer_container.querySelectorAll('.beamer-button').forEach(button => {
+            button.addEventListener('click', event => {
+                event.preventDefault();
+                const message = new Messaging.Message(button.dataset['mqttMessage']);
+                message.destinationName = button.dataset['topic'];
+                mqtt_controller.mqtt_client.send(message);
+            });
+        });
+    }
+
+    on_show() {
+    }
+}
+
+class AtemController {
+
+    constructor() {
+        this.container = document.querySelector('.tab-content.tab-media');
+        this.atem_container = this.container.querySelector('.atem-container');
+        this.atem_content = this.atem_container.querySelector('.atem-content');
+        this.active_source = undefined;
+        this.active_preview = undefined;
+        this.active_output = undefined;
+    }
+
+    on_load() {
+        this.register_events();
+    }
+
+    on_connect() {
+        mqtt_controller.mqtt_client.subscribe('atem/plenarsaal/#');
+    }
+
+    on_disconnect() {
+        this.atem_container.classList.remove('online');
+        this.atem_container.classList.remove('offline');
+
+        this.disable_atem_buttons();
+    }
+
+    on_message(message) {
 
         if (message.destinationName == 'atem/plenarsaal/status')
         {
@@ -1464,14 +1501,6 @@ class MediaController {
     }
 
     register_events() {
-        this.beamer_container.querySelectorAll('.beamer-button').forEach(button => {
-            button.addEventListener('click', event => {
-                event.preventDefault();
-                const message = new Messaging.Message(button.dataset['mqttMessage']);
-                message.destinationName = button.dataset['topic'];
-                mqtt_controller.mqtt_client.send(message);
-            });
-        });
     }
 
     register_atem_events() {
@@ -1892,7 +1921,8 @@ const mpd_controller = new MpdController();
 const infrastructure_controller = new InfrastructureController();
 const functions_controller = new FunctionsController();
 const preset_controller = new PresetController();
-const media_controller = new MediaController();
+const beamer_controller = new BeamerController();
+const atem_controller = new AtemController();
 const busleiste_controller = new BusleisteController();
 const anchor_controller = new AnchorController();
 const mqtt_controller = new MqttController();
@@ -1902,7 +1932,8 @@ controller_list.push(mpd_controller);
 controller_list.push(infrastructure_controller);
 controller_list.push(functions_controller);
 controller_list.push(preset_controller);
-controller_list.push(media_controller);
+controller_list.push(beamer_controller);
+controller_list.push(atem_controller);
 controller_list.push(busleiste_controller);
 controller_list.push(anchor_controller);
 controller_list.push(mqtt_controller); // should be the last one in the list
