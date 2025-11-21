@@ -1221,20 +1221,16 @@ class FunctionsController {
         const s = this.popup_element.querySelector('ul.tabbar > li.selected');
         if (!s)
             return;
-        switch (s.dataset.tab) {
-            case "presets": preset_controller.on_show();
-                break;
-            case "media":
-                beamer_controller.on_show();
-                atem_controller.on_show();
-                break;
-            case "busleiste": busleiste_controller.on_show();
-                break;
-        }
+        controller_list.forEach(ctl => {
+            if ('functions_popup_notify_tab' in ctl && ctl.functions_popup_notify_tab == s.dataset.tab)
+                ctl.on_show();
+        });
     }
 }
 
 class PresetController {
+
+    functions_popup_notify_tab = 'presets';
 
     constructor() {
         this.preset_tab = document.querySelector('#functions-popup .tab-content.tab-presets');
@@ -1317,6 +1313,8 @@ class PresetController {
 
 class BeamerController {
 
+    functions_popup_notify_tab = 'media';
+
     constructor() {
         this.container = document.querySelector('.tab-content.tab-media');
         this.beamer_container = this.container.querySelector('.beamer-container');
@@ -1372,6 +1370,8 @@ class BeamerController {
 }
 
 class AtemController {
+
+    functions_popup_notify_tab = 'media';
 
     constructor() {
         this.container = document.querySelector('.tab-content.tab-media');
@@ -1694,6 +1694,8 @@ class AnchorController {
 }
 
 class BusleisteController {
+
+    functions_popup_notify_tab = 'busleiste';
 
     constructor() {
         this.container = document.querySelector('.tab-content.tab-busleiste');
