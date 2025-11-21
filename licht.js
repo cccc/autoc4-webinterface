@@ -1589,9 +1589,6 @@ class MqttController {
     register_events() {
     }
 
-    on_show() {
-    }
-
     init_websockets() {
         console.log('setting up mqtt connection');
         //this.mqtt_client = new Messaging.Client(location.hostname, Number(location.port), this.generate_clientid());
@@ -1693,9 +1690,6 @@ class AnchorController {
     }
 
     register_events() {
-    }
-
-    on_show() {
     }
 }
 
