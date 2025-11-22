@@ -1123,6 +1123,26 @@ div#footer {
 .tab-content.tab-media {
   font-size: 0;
 }
+.tab-content.tab-media .media-container {
+  font-size: 1rem;
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 0.25em;
+}
+.tab-content.tab-media .media-container.online > h2:after {
+  content: '(on)';
+  color: green;
+  font-size: 70%;
+  margin-left: 1em;
+  font-weight: none;
+}
+.tab-content.tab-media .media-container.offline > h2:after {
+  content: '(off)';
+  color: red;
+  font-size: 70%;
+  margin-left: 1em;
+  font-weight: none;
+}
 .tab-content.tab-media .beamer-container {
   font-size: 1rem;
   vertical-align: top;
@@ -1264,14 +1284,14 @@ div#footer {
   margin-left: 0.25em;
 }
 .tab-content.tab-media .atem-container.online > h2:after {
-  content: '(connected)';
+  content: '(on)';
   color: green;
   font-size: 70%;
   margin-left: 1em;
   font-weight: none;
 }
 .tab-content.tab-media .atem-container.offline > h2:after {
-  content: '(disconnected)';
+  content: '(off)';
   color: red;
   font-size: 70%;
   margin-left: 1em;

@@ -683,9 +683,7 @@ div#footer {
 
   font-size: 0;
 
-  // BEAMER
-
-  .beamer-container {
+  .media-container {
     font-size: 1rem;
     vertical-align: top;
     display: inline-block;
@@ -706,6 +704,12 @@ div#footer {
       margin-left: 1em;
       font-weight: none;
     }
+  }
+
+  // BEAMER
+
+  .beamer-container {
+    .media-container;
   }
 
   .beamer-content {
@@ -745,26 +749,7 @@ div#footer {
   // ATEM
 
   .atem-container {
-    font-size: 1rem;
-    vertical-align: top;
-    display: inline-block;
-    margin-left: .25em;
-
-    &.online > h2:after {
-      content: '(connected)';
-      color: green;
-      font-size: 70%;
-      margin-left: 1em;
-      font-weight: none;
-    }
-
-    &.offline > h2:after {
-      content: '(disconnected)';
-      color: red;
-      font-size: 70%;
-      margin-left: 1em;
-      font-weight: none;
-    }
+    .media-container;
   }
 
   .atem-content {
