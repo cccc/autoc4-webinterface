@@ -76,6 +76,11 @@
         <span>{{ text }}</span>
     </div>
 {%- endmacro %}
+{% macro aten_button(input_index, output_name) -%}
+    <div class="aten-button disabled" data-input-index="0{{ input_index }}" title="Set {{ output_name }} to input {{ input_index }}">
+        <span>IN {{ input_index }}</span>
+    </div>
+{%- endmacro %}
 
 <!DOCTYPE html>
 <html>
@@ -459,6 +464,28 @@
                 </div>
             </div>
             #}
+            <div class="aten-container">
+                <h2>Aten HDMI-Matrix</h2>
+                <div class="aten-content">
+                    <table>
+                        {% for output_index in range(1, 5) %}
+                        <tr data-output-index="0{{ output_index }}">
+                            <td class="aten-row-label">OUT {{ output_index }}</td>
+                            {% for input_index in range(1, 5) %}
+                            <td>{{ aten_button(input_index, 'output ' + output_index|string) }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        <tr class="aten-row-spacer"></tr>
+                        <tr data-output-index="*">
+                            <td class="aten-row-label">Set all</td>
+                            {% for input_index in range(1, 5) %}
+                            <td>{{ aten_button(input_index, 'all outputs') }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="tab-content tab-busleiste">
         </div>

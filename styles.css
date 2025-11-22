@@ -1396,6 +1396,94 @@ div#footer {
   border-style: solid;
   color: #444444;
 }
+.tab-content.tab-media .aten-container {
+  font-size: 1rem;
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 0.25em;
+}
+.tab-content.tab-media .aten-container.online > h2:after {
+  content: '(on)';
+  color: green;
+  font-size: 70%;
+  margin-left: 1em;
+  font-weight: none;
+}
+.tab-content.tab-media .aten-container.offline > h2:after {
+  content: '(off)';
+  color: red;
+  font-size: 70%;
+  margin-left: 1em;
+  font-weight: none;
+}
+.tab-content.tab-media .aten-content {
+  font-size: 0;
+  text-align: center;
+}
+.tab-content.tab-media .aten-button {
+  font-size: 1rem;
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  user-select: none;
+  touch-action: none;
+  color: black;
+  width: 3em;
+  height: 3em;
+  margin: 0;
+  background-color: #666666;
+  border-color: #878787 #454545 #454545 #878787;
+  border-width: 1px;
+  border-style: solid;
+}
+.tab-content.tab-media .aten-button > span {
+  /* vertically centered */
+  display: block;
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+.tab-content.tab-media .aten-button:hover {
+  background-color: #787878;
+}
+.tab-content.tab-media .aten-button:active {
+  background-color: #666666;
+  border-color: #454545 #878787 #878787 #454545;
+}
+.tab-content.tab-media .aten-button.disabled {
+  background-color: #666666;
+  border-color: #878787 #454545 #454545 #878787;
+  border-width: 1px;
+  border-style: solid;
+  color: #444444;
+}
+.tab-content.tab-media .aten-button.active {
+  background-color: #ef4545;
+  border-color: #f48282 #df1313 #df1313 #f48282;
+  border-width: 1px;
+  border-style: solid;
+}
+.tab-content.tab-media .aten-button.active:hover {
+  background-color: #f26666;
+}
+.tab-content.tab-media .aten-button.active:active {
+  background-color: #ef4545;
+  border-color: #df1313 #f48282 #f48282 #df1313;
+}
+.tab-content.tab-media .aten-button.active.disabled {
+  background-color: #855858;
+  border-color: #a67979 #5d3e3e #5d3e3e #a67979;
+  border-width: 1px;
+  border-style: solid;
+  color: #444444;
+}
+.tab-content.tab-media .aten-row-label {
+  font-size: 1rem;
+  padding-right: 1em;
+}
+.tab-content.tab-media .aten-row-spacer {
+  height: 1rem;
+}
 .tab-content.tab-busleiste h3 {
   display: inline-block;
   margin-left: 0.5em;

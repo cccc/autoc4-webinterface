@@ -1566,6 +1566,103 @@ class AtemController {
     }
 }
 
+class AtenController {
+
+    functions_popup_notify_tab = 'media';
+
+    constructor() {
+        this.container = document.querySelector('.tab-content.tab-media');
+        this.aten_container = this.container.querySelector('.aten-container');
+        this.aten_content = this.aten_container.querySelector('.aten-content');
+        this.aten_state = undefined;
+    }
+
+    on_load() {
+        this.register_events();
+    }
+
+    on_connect() {
+        mqtt_controller.mqtt_client.subscribe('aten/plenar/#');
+    }
+
+    on_disconnect() {
+        this.aten_container.classList.remove('online');
+        this.aten_container.classList.remove('offline');
+
+        this.disable_aten_buttons();
+    }
+
+    on_message(message) {
+
+        if (message.destinationName == 'aten/plenar/connection')
+        {
+            if (message.payloadBytes.length != 1)
+                return;
+
+            if (message.payloadBytes[0] != 0) {
+                this.aten_container.classList.add('online');
+                this.aten_container.classList.remove('offline');
+                this.enable_aten_buttons();
+            } else {
+                this.aten_container.classList.add('offline');
+                this.aten_container.classList.remove('online');
+                this.disable_aten_buttons();
+            }
+            return true;
+        }
+
+        if (message.destinationName == 'aten/plenar/state')
+        {
+            const res = JSON.parse(message.payloadString);
+            this.aten_state = res;
+            this.update_routing_display();
+            return true;
+        }
+    }
+
+    register_events() {
+        this.aten_content.querySelectorAll('.aten-button').forEach(button => {
+            button.addEventListener('click', event => {
+                event.preventDefault();
+                const output_index = button.parentElement.parentElement.dataset.outputIndex;
+                const input_index = button.dataset.inputIndex;
+
+                const payload = `sw i${input_index} o${output_index}`;
+                const message = new Messaging.Message(payload);
+                message.destinationName =  'aten/plenar/cmd';
+                mqtt_controller.mqtt_client.send(message);
+            });
+        });
+    }
+
+    on_show() {
+    }
+
+    update_routing_display() {
+        this.aten_content.querySelectorAll('.aten-button').forEach(button => {
+            const output_index = button.parentElement.parentElement.dataset.outputIndex;
+            const input_index = button.dataset.inputIndex;
+            if (output_index in this.aten_state && this.aten_state[output_index][0] === input_index) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    enable_aten_buttons() {
+        this.aten_content.querySelectorAll('.aten-button').forEach(button => {
+            button.classList.remove('disabled');
+        });
+    }
+
+    disable_aten_buttons() {
+        this.aten_content.querySelectorAll('.aten-button').forEach(button => {
+            button.classList.add('disabled');
+        });
+    }
+}
+
 class MqttController {
 
     constructor() {
@@ -1919,6 +2016,7 @@ const functions_controller = new FunctionsController();
 const preset_controller = new PresetController();
 // const beamer_controller = new BeamerController();
 // const atem_controller = new AtemController();
+const aten_controller = new AtenController();
 const busleiste_controller = new BusleisteController();
 const anchor_controller = new AnchorController();
 const mqtt_controller = new MqttController();
@@ -1930,6 +2028,7 @@ controller_list.push(functions_controller);
 controller_list.push(preset_controller);
 // controller_list.push(beamer_controller);
 // controller_list.push(atem_controller);
+controller_list.push(aten_controller);
 controller_list.push(busleiste_controller);
 controller_list.push(anchor_controller);
 controller_list.push(mqtt_controller); // should be the last one in the list

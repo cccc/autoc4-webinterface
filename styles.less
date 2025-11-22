@@ -793,6 +793,40 @@ div#footer {
     &.preview.disabled { .effect3d(desaturate(#DD8800, 80%)); color:#444444; }
     &.active.disabled { .effect3d(desaturate(#DD0000, 80%)); color:#444444; }
   }
+
+  // ATEN HDMI MATRIX
+
+  .aten-container {
+    .media-container;
+  }
+
+  .aten-content {
+    .base-container;
+    text-align: center;
+  }
+
+  .aten-button {
+    .base-button;
+    color: black;
+    width:3em;
+    height:3em;
+    margin: 0;
+
+    .button3d(#666666);
+    &.disabled { .effect3d(desaturate(#666666, 80%)); color:#444444; }
+
+    &.active { .button3d(#ef4545); }
+    &.active.disabled { .effect3d(desaturate(#DD0000, 80%)); color:#444444; }
+  }
+
+  .aten-row-label {
+    font-size: 1rem;
+    padding-right: 1.0em;
+  }
+
+  .aten-row-spacer {
+    height: 1rem;
+  }
 }
 
 // BUSLEISTE
